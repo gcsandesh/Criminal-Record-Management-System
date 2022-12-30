@@ -1,0 +1,31 @@
+{
+  "name": "crms",
+  "version": "1.0.0",
+  "description": "A criminal record management system using React, Node, Express and MySQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SandeshGC/Criminal-Record-Management-System.git"
+  },
+  "keywords": [
+    "record",
+    "management",
+    "system",
+    "dbms",
+    "react",
+    "mysql",
+    "express",
+    "node",
+    "backend",
+    "frontend"
+  ],
+  "author": "Sandesh GC",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SandeshGC/Criminal-Record-Management-System/issues"
+  },
+  "homepage": "https://github.com/SandeshGC/Criminal-Record-Management-System#readme"
+}
