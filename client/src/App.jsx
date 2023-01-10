@@ -1,34 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+import { Landing, Users, EachUser, Crimes } from "./pages";
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+	return (
+		<Router>
+			<div className="App bg-blue-400 h-screen w-full flex flex-col justify-between">
+				<Routes>
+					<Route path="/" element={<Landing />} />
+					{/* other pages are accessible when user is logged in */}
+					<Route path="/users" element={<Users />} />
+					<Route path="/crimes" element={<Crimes />} />
+					<Route path="/user/:id" element={<EachUser />} />
+				</Routes>
+				<footer className="text-center text-xs bg-gray-900 text-white p-1">
+					Copyright &copy; 2023 - Sandesh GC
+				</footer>
+			</div>
+		</Router>
+	);
 }
 
-export default App
+export default App;
