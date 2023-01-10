@@ -6,10 +6,10 @@ CRMS is a record management system where a verified user can search for records 
 
 ## Tech Stack
 
--Front-end
+- Front-end
 
-    - React.js
-    - Tailwind CSS
+  - React.js
+  - Tailwind CSS
 
 - Back-end
 
@@ -21,18 +21,18 @@ CRMS is a record management system where a verified user can search for records 
 
 ## To run the application locally
 
-- Fork and clone this repository to your machine:
+- Fork and clone this repository to your machine: <br/>
   `git clone https://github.com/SandeshGC/Criminal-Record-Management-System.git`
 
-- Install required npm packages in 'server' directory and start server:
-  `cd server` **locate into server directory**
-  `npm install` **install packages**
-  `node index` **start server**
+- Install required npm packages in 'server' directory and start server:<br/>
+  `cd server` **locate into server directory**  
+  `npm install` **install packages**  
+  `node index` **start server**  
 
-- Install required npm packages in 'client' directory:
-  `cd client` **locate into client directory**
-  `npm install` **install packages**
-  `npm run dev` **deploy the frontend locally**
+- Install required npm packages in 'client' directory:<br/>
+  `cd client` **locate into client directory**  
+  `npm install` **install packages**  
+  `npm run dev` **deploy the frontend locally**  
 
 ## Author
 
