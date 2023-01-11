@@ -10,8 +10,8 @@ export default function Landing() {
 			<h1 className="text-5xl font-bold leading-loose">
 				Criminal Record Mangement System
 			</h1>
-
-			{!isLoggedIn && <LoginForm />}
+			{isLoggedIn ? <Records /> : <LoginForm setIsLoggedIn={setIsLoggedIn} />}
+			{/* {!isLoggedIn && <LoginForm setIsLoggedIn={setIsLoggedIn} />} */}
 		</div>
 	);
 }

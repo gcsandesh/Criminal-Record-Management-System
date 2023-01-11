@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 
-export default function LoginForm() {
+export default function LoginForm({ setIsLoggedIn }) {
+	const [formInput, setFormInput] = useState({ username: "", password: "" });
+
+	function handleLogin(event) {
+		event.preventDefault();
+		setIsLoggedIn(true);
+	}
+
+	function handleInput(event) {
+		const property = event.target.name;
+		const value = event.target.value;
+
+		setFormInput((prevFormInput) => ({
+			...prevFormInput,
+			[property]: value,
+		}));
+	}
 	return (
 		<div className="">
-			<form className="bg-white p-4 rounded-md flex flex-col gap-2">
+			<form
+				onSubmit={handleLogin}
+				className="bg-white p-4 rounded-md flex flex-col gap-2"
+			>
 				<h3 className="text-center border-b-2 border-blue-400">Login</h3>
 				<div className="my-2">
 					<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
@@ -13,6 +32,8 @@ export default function LoginForm() {
 							type={"text"}
 							name="username"
 							placeholder="username"
+							value={formInput.username}
+							onChange={handleInput}
 						/>
 					</div>
 					<div className="flex flex-col items-start gap-1 justify-between w-full">
@@ -22,6 +43,8 @@ export default function LoginForm() {
 							type={"password"}
 							name="password"
 							placeholder="password"
+							value={formInput.password}
+							onChange={handleInput}
 						/>
 					</div>
 				</div>
