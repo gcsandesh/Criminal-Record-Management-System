@@ -1,39 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-export default function SearchUserForm() {
-	const initialForm = {
-		firstName: "",
-		middleName: "",
-		lastName: "",
-		age: "",
-		gender: "",
-		crime: "",
-	};
-	const [formData, setFormData] = useState(initialForm);
-
-	function handleSubmit(formEl) {
-		const result = fetch(`http://localhost:9988/api/records/name/`).then(
-			(res) => res.json()
-		);
-		const data = result.then((data) => data);
-		console.log(data);
-	}
+export default function SearchUserForm({
+	formData,
+	setFormData,
+	handleSubmit,
+}) {
 	function handleInput(e) {
 		const property = e.target.name;
 		const value = e.target.value;
 		setFormData((prevFormData) => ({ ...prevFormData, [property]: value }));
 	}
-	useEffect(() => {
-		console.log(formData);
-
-		return () => {
-			console.log("removeEffect");
-		};
-	}, [formData]);
 
 	return (
 		<div className="flex flex-col h-full items-center justify-center">
 			<form
+				method="GET"
 				onSubmit={handleSubmit}
 				className="flex flex-col justify-between items-start rounded-md gap-2 p-4 bg-white"
 			>
@@ -102,6 +83,7 @@ export default function SearchUserForm() {
 					/>
 				</div>
 				<button
+					// onClick={handleSubmit}
 					className="bg-green-500 text-white rounded-full w-1/2 mx-auto text-sm p-1"
 					type="submit"
 				>
