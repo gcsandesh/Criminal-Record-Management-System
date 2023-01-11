@@ -1,6 +1,8 @@
 import Landing from "./Landing";
-import Users from "./Users";
-import EachUser from "./EachUser";
+import Records from "./Records/Records";
+import EachRecord from "./EachRecord";
 import Crimes from "./Crimes";
+import AddRecord from "./AddRecord";
+import Users from "./Users";
 
-export { Landing, Users, EachUser, Crimes };
+export { Landing, Records, EachRecord, AddRecord, Crimes, Users };
