@@ -15,6 +15,7 @@ export default function Records() {
 	};
 
 	const [formData, setFormData] = useState(initialForm);
+	const [isSubmitted, setIsSubmitted] = useState(false);
 	const [searchResult, setSearchResult] = useState({});
 
 	function handleSubmit(event) {
@@ -27,8 +28,8 @@ export default function Records() {
 			.then((res) => res.json())
 			.then((data) => {
 				setSearchResult(data);
+				setIsSubmitted(true);
 			});
-		// console.log(searchResult);
 	}
 
 	return (
@@ -43,7 +44,7 @@ export default function Records() {
 					handleSubmit={handleSubmit}
 				/>
 			</div>
-			<SearchResults searchResult={searchResult} />
+			{isSubmitted && <SearchResults searchResult={searchResult} />}
 		</div>
 	);
 }

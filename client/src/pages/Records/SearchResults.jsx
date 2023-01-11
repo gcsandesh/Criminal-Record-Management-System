@@ -2,7 +2,6 @@ import React from "react";
 import { UserPreview } from "../../components";
 
 export default function SearchResults({ searchResult }) {
-	console.log("form results", searchResult[0]);
 	const listOfUsers = searchResult.map(
 		({
 			record_id,
