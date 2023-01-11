@@ -1,11 +1,11 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-export default function EachUser() {
+export default function EachRecord() {
 	const { id } = useParams();
 	return (
 		<div>
-			<h1 className="text-2xl">EachUser</h1>
+			<h1 className="text-2xl">EachRecord</h1>
 			<p>
 				{/* id shall be 3 or 4 digit number, idk */}
 				id: {id}

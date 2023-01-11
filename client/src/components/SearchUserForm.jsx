@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function SearchUserForm() {
+	const [formData, setFormData] = useState({ firstName: "" });
 	return (
 		<div className="flex flex-col h-full items-center justify-center">
 			<form className="flex flex-col justify-between items-start rounded-md gap-2 p-4 bg-white">
@@ -8,15 +9,23 @@ export default function SearchUserForm() {
 					<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
 						<label htmlFor="firstName">First Name</label>
 						<input
-							className="bg-gray-200 rounded-sm px-2 w-24"
+							className="bg-gray-200 rounded-sm px-2 w-36"
 							type={"text"}
 							name="firstName"
 						/>
 					</div>
 					<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
+						<label htmlFor="middleName">Middle Name</label>
+						<input
+							className="bg-gray-200 rounded-sm px-2 w-36"
+							type={"text"}
+							name="middleName"
+						/>
+					</div>
+					<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
 						<label htmlFor="lastName">Last Name</label>
 						<input
-							className="bg-gray-200 rounded-sm px-2 w-24"
+							className="bg-gray-200 rounded-sm px-2 w-36"
 							type={"text"}
 							name="lastName"
 						/>
@@ -26,7 +35,7 @@ export default function SearchUserForm() {
 					<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
 						<label htmlFor="age">Age</label>
 						<input
-							className="bg-gray-200 rounded-sm px-2 w-24"
+							className="bg-gray-200 rounded-sm px-2 w-36"
 							type={"number"}
 							name="age"
 						/>
@@ -34,7 +43,7 @@ export default function SearchUserForm() {
 					<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
 						<label htmlFor="gender">Gender</label>
 						<input
-							className="bg-gray-200 rounded-sm px-2 w-24"
+							className="bg-gray-200 rounded-sm px-2 w-36"
 							type={"text"}
 							name="gender"
 						/>
@@ -43,7 +52,7 @@ export default function SearchUserForm() {
 				<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
 					<label htmlFor="crime">Crime</label>
 					<input
-						className="bg-gray-200 rounded-sm px-2 w-24"
+						className="bg-gray-200 rounded-sm px-2 w-36"
 						type={"text"}
 						name="crime"
 					/>
