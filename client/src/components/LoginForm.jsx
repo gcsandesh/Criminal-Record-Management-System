@@ -2,8 +2,8 @@ import React from "react";
 
 export default function LoginForm() {
 	return (
-		<div className="m-auto">
-			<div className="bg-white p-4 rounded-md flex flex-col gap-2">
+		<div className="">
+			<form className="bg-white p-4 rounded-md flex flex-col gap-2">
 				<h3 className="text-center border-b-2 border-blue-400">Login</h3>
 				<div className="my-2">
 					<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
@@ -31,7 +31,7 @@ export default function LoginForm() {
 				>
 					Login
 				</button>
-			</div>
+			</form>
 		</div>
 	);
 }
