@@ -4,6 +4,7 @@ const cors = require("cors");
 const db = require("./config/db");
 const records = require("./routes/records");
 const crimes = require("./routes/crimes");
+const users = require("./routes/users");
 
 const app = express();
 app.use(cors());
@@ -36,3 +37,4 @@ app.get("/", (req, res) => {
 
 app.use("/api/records", records);
 app.use("/api/crimes", crimes);
+app.use("/api/users", users);
