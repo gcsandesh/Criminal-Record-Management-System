@@ -16,7 +16,7 @@ export default function SearchUserForm({
 			<form
 				method="GET"
 				onSubmit={handleSubmit}
-				className="flex flex-col justify-between items-start rounded-md gap-2 p-4 bg-white"
+				className="flex flex-col justify-between items-start rounded-md gap-2 p-4 bg-light text-dark"
 			>
 				<div className="flex justify-between gap-2">
 					<div className="flex flex-col items-start gap-1 justify-between w-full my-2">

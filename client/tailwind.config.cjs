@@ -6,6 +6,10 @@ module.exports = {
 			fontFamily: {
 				Manrope: ["Manrope", "sans-serif"],
 			},
+			colors: {
+				dark: "#1d3557",
+				light: "#f1faee",
+			},
 		},
 	},
 	plugins: [],

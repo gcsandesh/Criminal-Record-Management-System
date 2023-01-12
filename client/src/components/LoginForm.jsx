@@ -21,7 +21,7 @@ export default function LoginForm({ setIsLoggedIn }) {
 		<div className="">
 			<form
 				onSubmit={handleLogin}
-				className="bg-white p-4 rounded-md flex flex-col gap-2"
+				className="bg-white text-black p-4 rounded-md flex flex-col gap-2"
 			>
 				<h3 className="text-center border-b-2 border-blue-400">Login</h3>
 				<div className="my-2">

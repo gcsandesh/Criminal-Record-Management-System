@@ -8,14 +8,14 @@ import {
 	Crimes,
 	Records,
 	EachRecord,
-	AddRecord,
 	AdminDash,
 } from "./pages";
+import ManageRecords from "./pages/Admin/ManageRecords";
 
 function App() {
 	return (
 		<Router>
-			<div className="App bg-blue-400">
+			<div className="App bg-dark text-light">
 				<Routes>
 					<Route path="/" element={<Layout />}>
 						<Route index element={<Landing />} />
@@ -23,10 +23,12 @@ function App() {
 						<Route path="/records/:id" element={<EachRecord />} />
 						<Route path="/crimes" element={<Crimes />} />
 						{/* for admin */}
-						<Route path="/admin">
-							<Route index element={<AdminDash />} />
+						<Route path="/admin" element={<AdminDash />}>
+							{/* <Route index element={<AdminDash />}> */}
+							<Route index element={<Records />} />
 							<Route path="users" element={<Users />} />
-							<Route path="records" element={<AddRecord />} />
+							<Route path="records" element={<ManageRecords />} />
+							{/* </Route> */}
 						</Route>
 					</Route>
 				</Routes>
