@@ -9,6 +9,7 @@ import {
 	Records,
 	EachRecord,
 	AddRecord,
+	AdminDash,
 } from "./pages";
 
 function App() {
@@ -22,8 +23,11 @@ function App() {
 						<Route path="/records/:id" element={<EachRecord />} />
 						<Route path="/crimes" element={<Crimes />} />
 						{/* for admin */}
-						<Route path="/users" element={<Users />} />
-						<Route path="/add-record" element={<AddRecord />} />
+						<Route path="/admin">
+							<Route index element={<AdminDash />} />
+							<Route path="users" element={<Users />} />
+							<Route path="records" element={<AddRecord />} />
+						</Route>
 					</Route>
 				</Routes>
 			</div>
