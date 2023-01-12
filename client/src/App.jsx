@@ -11,6 +11,7 @@ import {
 	AdminDash,
 } from "./pages";
 import ManageRecords from "./pages/Admin/ManageRecords";
+import AddRecord from "./pages/Admin/AddRecord";
 
 function App() {
 	return (
@@ -27,7 +28,9 @@ function App() {
 							{/* <Route index element={<AdminDash />}> */}
 							<Route index element={<Records />} />
 							<Route path="users" element={<Users />} />
-							<Route path="records" element={<ManageRecords />} />
+							<Route path="records" element={<ManageRecords />}>
+								<Route path="add" element={<AddRecord />} />
+							</Route>
 							{/* </Route> */}
 						</Route>
 					</Route>
