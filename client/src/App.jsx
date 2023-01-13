@@ -12,6 +12,7 @@ import {
 } from "./pages";
 import ManageRecords from "./pages/Admin/ManageRecords";
 import AddRecord from "./pages/Admin/AddRecord";
+import Stats from "./pages/Admin/Stats";
 
 function App() {
 	return (
@@ -25,13 +26,12 @@ function App() {
 						<Route path="/crimes" element={<Crimes />} />
 						{/* for admin */}
 						<Route path="/admin" element={<AdminDash />}>
-							{/* <Route index element={<AdminDash />}> */}
-							<Route index element={<Records />} />
+							<Route index element={<Stats />} />
 							<Route path="users" element={<Users />} />
 							<Route path="records" element={<ManageRecords />}>
+								<Route index element={<Records />} />
 								<Route path="add" element={<AddRecord />} />
 							</Route>
-							{/* </Route> */}
 						</Route>
 					</Route>
 				</Routes>

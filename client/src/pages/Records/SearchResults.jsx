@@ -1,5 +1,5 @@
 import React from "react";
-import { UserPreview } from "../../components";
+import { RecordPreview } from "../../components";
 
 export default function SearchResults({ searchResult }) {
 	const listOfUsers = searchResult.map(
@@ -16,7 +16,7 @@ export default function SearchResults({ searchResult }) {
 			crime_id,
 		}) => (
 			<li key={record_id}>
-				<UserPreview
+				<RecordPreview
 					recordId={record_id}
 					firstName={first_name}
 					middleName={middle_name}

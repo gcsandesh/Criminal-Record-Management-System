@@ -10,7 +10,9 @@ export default function AdminDash() {
 			</h1>
 			<div className="flex gap-4">
 				<AdminSideNav />
-				<Outlet />
+				<div className="p-4">
+					<Outlet />
+				</div>
 			</div>
 		</div>
 	);

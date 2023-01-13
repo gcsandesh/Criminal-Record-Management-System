@@ -15,9 +15,14 @@ export default function AddRecord() {
 
 	const [record, setRecord] = useState(emptyRecord);
 
+	function handleSubmit(event) {
+		event.preventDefault();
+		console.log(record);
+	}
+
 	function handleInput(event) {
 		const property = event.target.name;
-		const value = event.targe.value;
+		const value = event.target.value;
 
 		setRecord((prevRecord) => ({
 			...prevRecord,
@@ -36,17 +41,18 @@ export default function AddRecord() {
 						<label htmlFor="firstName">First Name</label>
 						<input
 							onChange={handleInput}
-							className="bg-gray-200 rounded-sm px-2 w-36"
+							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"text"}
 							name="firstName"
 							value={record.firstName}
+							required
 						/>
 					</div>
 					<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
 						<label htmlFor="middleName">Middle Name</label>
 						<input
 							onChange={handleInput}
-							className="bg-gray-200 rounded-sm px-2 w-36"
+							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"text"}
 							name="middleName"
 							value={record.middleName}
@@ -56,10 +62,11 @@ export default function AddRecord() {
 						<label htmlFor="lastName">Last Name</label>
 						<input
 							onChange={handleInput}
-							className="bg-gray-200 rounded-sm px-2 w-36"
+							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"text"}
 							name="lastName"
 							value={record.lastName}
+							required
 						/>
 					</div>
 				</div>
@@ -68,39 +75,78 @@ export default function AddRecord() {
 						<label htmlFor="age">Age</label>
 						<input
 							onChange={handleInput}
-							className="bg-gray-200 rounded-sm px-2 w-36"
+							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"number"}
 							name="age"
 							value={record.age}
+							required
 						/>
 					</div>
 					<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
 						<label htmlFor="gender">Gender</label>
 						<input
+							list="genders"
 							onChange={handleInput}
-							className="bg-gray-200 rounded-sm px-2 w-36"
-							type={"text"}
+							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
+							// type={"text"}
 							name="gender"
 							value={record.gender}
+							required
+						/>
+						<datalist id="genders">
+							<option value={"Male"} />
+							<option value={"Female"} />
+							<option value={"Other"} />
+						</datalist>
+					</div>
+					<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
+						<label htmlFor="height">Height (inch)</label>
+						<input
+							onChange={handleInput}
+							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
+							type={"number"}
+							name="height"
+							placeholder="Height in inches"
+							value={record.height}
+							required
 						/>
 					</div>
 				</div>
-				<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
-					<label htmlFor="crime">Crime</label>
-					<input
-						onChange={handleInput}
-						className="bg-gray-200 rounded-sm px-2 w-36"
-						type={"text"}
-						name="crime"
-						value={record.crime}
-					/>
+				<div className="flex justify-between gap-2">
+					<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
+						<label htmlFor="crime">Crime</label>
+						<input
+							onChange={handleInput}
+							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
+							type={"text"}
+							name="crime"
+							placeholder="Crime committed"
+							value={record.crime}
+						/>
+					</div>
+					<div className="flex flex-col items-start gap-1 justify-between my-2">
+						<label htmlFor="photo">Photo</label>
+						<input
+							onChange={handleInput}
+							className="bg-gray-200 rounded-sm px-2 w-60 h-6 py-0.5 text-xs text-gray-600"
+							type={"file"}
+							name="photo"
+							value={record.photo}							
+							// required
+						/>
+					</div>
 				</div>
 				<button
-					// onClick={handleSubmit}
 					className="bg-green-500 text-white rounded-full w-1/2 mx-auto text-sm p-1"
 					type="submit"
 				>
-					Search
+					Add
+				</button>
+				<button
+					className="bg-red-500 text-white rounded-full w-1/2 mx-auto text-sm p-1"
+					type="reset"
+				>
+					Reset
 				</button>
 			</form>
 		</div>
