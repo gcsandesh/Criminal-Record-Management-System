@@ -33,9 +33,7 @@ export default function SearchResults({ searchResult }) {
 	);
 	return (
 		<div className="rounded-md">
-			<ul className="flex flex-col w-full rounded-md gap-4">
-				{listOfUsers}
-			</ul>
+			<ul className="flex flex-col w-full rounded-md gap-4">{listOfUsers}</ul>
 		</div>
 	);
 }
