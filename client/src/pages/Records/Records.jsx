@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { CgFileAdd } from "react-icons/cg";
 import { SearchUserForm } from "../../components";
+import AllRecords from "./AllRecords";
 import SearchResults from "./SearchResults";
 
 export default function Records() {
@@ -35,16 +34,17 @@ export default function Records() {
 	return (
 		<div className=" h-full flex flex-col items-center justify-center">
 			<div>
-				<Link to="/add-record">
-					<CgFileAdd color="white" size={24} />
-				</Link>
 				<SearchUserForm
 					formData={formData}
 					setFormData={setFormData}
 					handleSubmit={handleSubmit}
 				/>
 			</div>
-			{isSubmitted && <SearchResults searchResult={searchResult} />}
+			{isSubmitted ? (
+				<SearchResults searchResult={searchResult} />
+			) : (
+				<AllRecords />
+			)}
 		</div>
 	);
 }

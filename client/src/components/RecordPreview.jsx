@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function UserPreview({
+export default function RecordPreview({
 	recordId,
 	firstName,
 	middleName,

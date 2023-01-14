@@ -1,19 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import { CgFileAdd } from "react-icons/cg";
 
 export default function ManageRecords() {
 	return (
 		<div>
 			<button>
-				<Link to="add">Add Record</Link>
+				<Link to="add" className="flex items-center gap-2">
+					<CgFileAdd color="white" size={24} /> Add Record
+				</Link>
 			</button>
-			<button>
-				<Link to="edit">Edit Record</Link>
-			</button>
-			<button>
-				<Link to="delete">Delete Record</Link>
-			</button>
-			{/* <button></button> */}
+			<Outlet />
 		</div>
 	);
 }
