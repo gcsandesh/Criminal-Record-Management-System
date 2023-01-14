@@ -13,18 +13,18 @@ export default function RecordPreview({
 	crime,
 }) {
 	return (
-		<div className="flex flex-col">
-			<p>{photo}</p>
-			<div className="flex items-center justify-between">
-				<p>{recordId}</p>
-				<p>{firstName}</p>
-				<p>{middleName}</p>
-				<p>{lastName}</p>
-				<p>{age}</p>
-				<p>{gender}</p>
-				<p>{height}</p>
-				<p>{isCriminal}</p>
-				<p>{crime}</p>
+		<div className="flex justify-between items-center gap-2 h-24 my-2">
+			<div className=" w-1/6 h-full ">
+				<img src={photo} className="w-full h-full object-cover" />
+			</div>
+			<div className="flex w-full items-center justify-between">
+				<p>Id: {recordId}</p>
+				<p>{`${firstName} ${middleName ? middleName : ""} ${lastName}`}</p>
+				<p>Age: {age}</p>
+				<p>Sex: {gender}</p>
+				<p>Height (inches): {height}</p>
+				<p>Criminal: {isCriminal}</p>
+				<p>Crime committed: {crime}</p>
 			</div>
 		</div>
 	);
