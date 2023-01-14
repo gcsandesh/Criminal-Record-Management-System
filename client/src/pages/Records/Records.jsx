@@ -19,6 +19,7 @@ export default function Records() {
 
 	function handleSubmit(event) {
 		event.preventDefault();
+		if (!validateForm(formData)) return console.log("empty form");
 		// const searchFormData = Object.fromEntries(new FormData(event.target));
 		const searchFormData = formData;
 		const firstName = searchFormData.firstName;
@@ -31,19 +32,29 @@ export default function Records() {
 			});
 	}
 
+	function validateForm(data) {
+		return (
+			data.age.trim() ||
+			data.crime.trim() ||
+			data.firstName.trim() ||
+			data.middleName.trim() ||
+			data.lastName.trim() ||
+			data.gender.trim()
+		);
+	}
+
 	return (
-		<div className=" h-full flex flex-col items-center justify-center">
-			<div>
-				<SearchUserForm
-					formData={formData}
-					setFormData={setFormData}
-					handleSubmit={handleSubmit}
-				/>
-			</div>
-			{isSubmitted ? (
-				<SearchResults searchResult={searchResult} />
-			) : (
+		<div className=" h-full flex flex-col gap-4">
+			<SearchUserForm
+				formData={formData}
+				setFormData={setFormData}
+				handleSubmit={handleSubmit}
+			/>
+
+			{!isSubmitted || !formData ? (
 				<AllRecords />
+			) : (
+				<SearchResults searchResult={searchResult} />
 			)}
 		</div>
 	);

@@ -6,8 +6,11 @@ export default function ManageRecords() {
 	return (
 		<div>
 			<button>
-				<Link to="add" className="flex items-center gap-2">
-					<CgFileAdd color="white" size={24} /> Add Record
+				<Link
+					to="add"
+					className="flex items-center gap-2 p-2 my-2 bg-light text-dark rounded-md"
+				>
+					<CgFileAdd color="dark" size={24} /> Add Record
 				</Link>
 			</button>
 			<Outlet />

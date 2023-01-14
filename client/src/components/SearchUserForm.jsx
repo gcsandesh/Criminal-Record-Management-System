@@ -17,7 +17,7 @@ export default function SearchUserForm({
 			<form
 				method="GET"
 				onSubmit={handleSubmit}
-				className="flex justify-between items-center rounded-md gap-2 p-4 bg-light text-dark"
+				className="flex justify-between items-center rounded-md gap-2 p-4 w-full bg-light text-dark"
 			>
 				<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
 					<label htmlFor="firstName">First Name</label>
