@@ -32,14 +32,12 @@ export default function Records() {
 	}
 
 	return (
-		<div className=" h-full flex flex-col items-center justify-center">
-			<div>
-				<SearchUserForm
-					formData={formData}
-					setFormData={setFormData}
-					handleSubmit={handleSubmit}
-				/>
-			</div>
+		<div className=" h-full flex flex-col border-4">
+			<SearchUserForm
+				formData={formData}
+				setFormData={setFormData}
+				handleSubmit={handleSubmit}
+			/>
 			{isSubmitted ? (
 				<SearchResults searchResult={searchResult} />
 			) : (
