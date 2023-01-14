@@ -9,10 +9,6 @@ export default function AllRecords({ isAdmin }) {
 		fetch("http://localhost:9988/api/records")
 			.then((res) => res.json())
 			.then((data) => setRecords(data));
-
-		// return () => {
-		// 	setAllRecords([]);
-		// };
 	}, []);
 
 	const allRecordsEl = records.map(

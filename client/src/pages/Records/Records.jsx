@@ -32,7 +32,7 @@ export default function Records() {
 	}
 
 	return (
-		<div className=" h-full flex flex-col border-4">
+		<div className=" h-full flex flex-col gap-4">
 			<SearchUserForm
 				formData={formData}
 				setFormData={setFormData}
