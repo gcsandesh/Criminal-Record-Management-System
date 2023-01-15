@@ -134,14 +134,13 @@ router.post("/create", (req, res) => {
 		age,
 		genderId,
 		height,
-		isCriminal,
 		crimeId,
 		photo,
 	} = req.body;
 
 	try {
 		db.query(
-			"INSERT INTO records(first_name, middle_name, last_name, age, gender_id, height_inch, isCriminal, crime_id, photo) VALUES(?,?,?,?,?,?,?,?,?);",
+			"INSERT INTO records(first_name, middle_name, last_name, age, gender_id, height_inch, crime_id, photo) VALUES(?,?,?,?,?,?,?,?);",
 			[
 				firstName,
 				middleName,
@@ -149,12 +148,12 @@ router.post("/create", (req, res) => {
 				age,
 				genderId,
 				height,
-				isCriminal,
 				crimeId,
 				photo,
 			],
 			(error, result) => {
 				if (error) console.log(error);
+				console.log("Record Added!")
 				res.send(result);
 			}
 		);
