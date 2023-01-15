@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { LoginForm } from "../components";
-import { Records } from "../pages";
 
 export default function Landing() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -10,8 +9,7 @@ export default function Landing() {
 			<h1 className="text-5xl font-bold leading-loose">
 				Criminal Record Mangement System
 			</h1>
-			{isLoggedIn ? <Records /> : <LoginForm setIsLoggedIn={setIsLoggedIn} />}
-			{/* {!isLoggedIn && <LoginForm setIsLoggedIn={setIsLoggedIn} />} */}
+			 <LoginForm setIsLoggedIn={setIsLoggedIn} />
 		</div>
 	);
 }

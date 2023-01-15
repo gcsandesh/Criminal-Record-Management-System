@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm({ setIsLoggedIn }) {
+	const nav = useNavigate();
 	const [formInput, setFormInput] = useState({ username: "", password: "" });
 
 	function handleLogin(event) {
 		event.preventDefault();
+		nav("/records");
 		setIsLoggedIn(true);
 	}
 
