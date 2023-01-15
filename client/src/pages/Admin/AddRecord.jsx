@@ -15,8 +15,16 @@ export default function AddRecord() {
 
 	const [record, setRecord] = useState(emptyRecord);
 
-	function handleSubmit(event) {
+	async function handleSubmit(event) {
 		event.preventDefault();
+		const res = await fetch("http://localhost:9988/api/records/create", {
+			method: "POST",
+			body: JSON.stringify(record),
+			headers: {
+				"Content-type": "application/json; charset=UTF-8",
+			},
+		});
+		const resAfterSubmit = await res.json();
 		console.log(record);
 	}
 
@@ -131,7 +139,7 @@ export default function AddRecord() {
 							className="bg-gray-200 rounded-sm px-2 w-60 h-6 py-0.5 text-xs text-gray-600"
 							type={"file"}
 							name="photo"
-							value={record.photo}							
+							value={record.photo}
 							// required
 						/>
 					</div>
