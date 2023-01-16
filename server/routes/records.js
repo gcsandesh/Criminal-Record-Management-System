@@ -44,6 +44,7 @@ router.get("/firstName/:firstName", (req, res) => {
 		console.log("Error running query!");
 	}
 });
+
 // get user by middle name
 router.get("/middleName/:middleName", (req, res) => {
 	const middleName = req.params.middleName;
@@ -61,7 +62,7 @@ router.get("/middleName/:middleName", (req, res) => {
 	}
 });
 
-// // get user by last name
+// get user by last name
 router.get("/lastName/:lastName", (req, res) => {
 	const lastName = req.params.lastName;
 	try {
