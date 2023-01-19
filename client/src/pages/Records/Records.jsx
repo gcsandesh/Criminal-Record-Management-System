@@ -23,7 +23,14 @@ export default function Records() {
 		// const searchFormData = Object.fromEntries(new FormData(event.target));
 		const searchFormData = formData;
 		const firstName = searchFormData.firstName;
-		let requestURL = `http://127.0.0.1:9988/api/records/firstName/${firstName}`;
+		// let requestURL = `http://127.0.0.1:9988/api/records/firstName/${firstName}`;
+		// fetch(requestURL)
+		// 	.then((res) => res.json())
+		// 	.then((data) => {
+		// 		setSearchResult(data);
+		// 		setIsSubmitted(true);
+		// 	});
+		let requestURL = `http://127.0.0.1:9988/api/records/${formData}`;
 		fetch(requestURL)
 			.then((res) => res.json())
 			.then((data) => {
