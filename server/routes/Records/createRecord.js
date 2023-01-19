@@ -1,4 +1,4 @@
-const router = require("express").Router();
+const router = require("express").Router()
 
 // create record
 router.post("/create", (req, res) => {
@@ -11,21 +11,21 @@ router.post("/create", (req, res) => {
 		height,
 		crimeId,
 		photo,
-	} = req.body;
+	} = req.body
 
 	try {
 		db.query(
 			"INSERT INTO records(first_name, middle_name, last_name, age, gender_id, height_inch, crime_id, photo) VALUES(?,?,?,?,?,?,?,?);",
 			[firstName, middleName, lastName, age, genderId, height, crimeId, photo],
 			(error, result) => {
-				if (error) console.log(error);
-				console.log("Record Added!");
-				res.send(result);
+				if (error) console.log(error)
+				console.log("Record Added!")
+				res.send(result)
 			}
-		);
+		)
 	} catch {
-		console.log("Error running query!");
+		console.log("Error running query!")
 	}
-});
+})
 
-module.exports = router;
+module.exports = router

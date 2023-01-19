@@ -1,21 +1,8 @@
 const router = require("express").Router()
-const db = require("../../config/db")
 
-// *********** get all crimes *********/
-router.get("/", (req, res) => {
-	db.query("SELECT * FROM crimes", (error, result) => {
-		if (error) return res.status(404).send("No items found!")
-		return res.send(result)
-	})
-})
-
-// *********** add a crime ************/
-router.post("/create", (req, res) => {
-	const crimeName = req.body.name
-	db.query("INSERT INTO crimes(name) VALUES(?)", crimeName, (error, result) => {
-		if (error) return res.status(400).send("Error inserting data!")
-		return res.send(result)
-	})
-})
+router.use("/get", require("./getCrime"))
+router.use("/add", require("./addCrime"))
+router.use("/update", require("./updateCrime"))
+router.use("/remove", require("./removeCrime"))
 
 module.exports = router

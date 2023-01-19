@@ -15,12 +15,16 @@ router.get("/", (req, res) => {
 
 // get user by Id
 router.get("/id/:id", (req, res) => {
-	const id = req.params.id
+	const recordId = req.params.id
 	try {
-		db.query("SELECT * FROM records WHERE record_id=?", id, (error, result) => {
-			if (error) console.log(error)
-			res.send(result)
-		})
+		db.query(
+			"SELECT * FROM records WHERE record_id=?",
+			recordId,
+			(error, result) => {
+				if (error) console.log(error)
+				res.send(result)
+			}
+		)
 	} catch {
 		console.log("Error running query!")
 	}
