@@ -17,6 +17,7 @@ export default function AddRecord() {
 
 	async function handleSubmit(event) {
 		event.preventDefault();
+		console.log("attempting to create record...")
 		const res = await fetch("http://localhost:9988/api/records/create", {
 			method: "POST",
 			body: JSON.stringify(record),
@@ -42,7 +43,7 @@ export default function AddRecord() {
 	return (
 		<div>
 			<form
-				method="GET"
+				method="POST"
 				onSubmit={handleSubmit}
 				className="flex flex-col justify-between items-start rounded-md gap-2 p-4 bg-light text-dark"
 			>
@@ -54,6 +55,7 @@ export default function AddRecord() {
 							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"text"}
 							name="firstName"
+							id="firstName"
 							value={record.firstName}
 							required
 						/>
@@ -65,6 +67,7 @@ export default function AddRecord() {
 							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"text"}
 							name="middleName"
+							id="middleName"
 							value={record.middleName}
 						/>
 					</div>
@@ -75,6 +78,7 @@ export default function AddRecord() {
 							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"text"}
 							name="lastName"
+							id="lastName"
 							value={record.lastName}
 							required
 						/>
@@ -88,6 +92,7 @@ export default function AddRecord() {
 							className="bg-gray-200 rounded-sm pl-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"number"}
 							name="age"
+							id="age"
 							value={record.age}
 							required
 						/>
@@ -126,6 +131,7 @@ export default function AddRecord() {
 							className="bg-gray-200 rounded-sm pl-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"number"}
 							name="height"
+							id="height"
 							placeholder="Height in inches"
 							value={record.height}
 							required
@@ -140,6 +146,7 @@ export default function AddRecord() {
 							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"text"}
 							name="crime"
+							id="crime"
 							placeholder="Crime committed"
 							value={record.crime}
 						/>
@@ -151,6 +158,7 @@ export default function AddRecord() {
 							className="bg-gray-200 rounded-sm w-60 h-6 text-xs text-gray-600"
 							type={"file"}
 							name="photo"
+							id="photo"
 							value={record.photo}
 							// required
 						/>
@@ -159,6 +167,7 @@ export default function AddRecord() {
 				<button
 					className="bg-green-500 text-white rounded-full w-1/2 mx-auto text-sm p-1"
 					type="submit"
+					// onClick={handleSubmit}
 				>
 					Add
 				</button>

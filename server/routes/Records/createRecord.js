@@ -1,7 +1,8 @@
 const router = require("express").Router()
+const db = require("../../config/db")
 
 // create record
-router.post("/create", (req, res) => {
+router.post("/", (req, res) => {
 	const {
 		firstName,
 		middleName,

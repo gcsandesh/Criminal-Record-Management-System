@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 export default function Users() {
 	const [users, setUsers] = useState([]);
 	useEffect(() => {
-		fetch("http://127.0.0.1:9988/api/users")
+		fetch("http://127.0.0.1:9988/api/users/get")
 			.then((res) => res.json())
 			.then((data) => setUsers(data));
 	}, []);

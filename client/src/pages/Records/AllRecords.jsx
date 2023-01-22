@@ -6,7 +6,7 @@ export default function AllRecords({ isAdmin }) {
 	const [records, setRecords] = useState([]);
 
 	useEffect(() => {
-		fetch("http://localhost:9988/api/records")
+		fetch("http://localhost:9988/api/records/get")
 			.then((res) => res.json())
 			.then((data) => setRecords(data));
 	}, []);

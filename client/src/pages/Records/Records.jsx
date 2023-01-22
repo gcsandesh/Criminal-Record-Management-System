@@ -30,7 +30,7 @@ export default function Records() {
 		// 		setSearchResult(data);
 		// 		setIsSubmitted(true);
 		// 	});
-		let requestURL = `http://127.0.0.1:9988/api/records/${formData}`;
+		let requestURL = `http://127.0.0.1:9988/api/records/get/firstName/${formData.firstName}`;
 		fetch(requestURL)
 			.then((res) => res.json())
 			.then((data) => {
