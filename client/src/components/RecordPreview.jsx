@@ -17,7 +17,7 @@ export default function RecordPreview({
 	// console.log(crimeObj)
 	// const crimeName = crimeObj.name
 	return (
-		<div className="mx-auto w-full bg-gray-900 h-28 my-2 rounded-md py-2">
+		<div className="mx-auto w-full border-b-2 border-b-gray-200 h-28 my-2 rounded-md py-2">
 			<Link to={`/records/${recordId}`}>
 				<div className="mx-auto flex gap-4 w-full">
 					<div className="w-2/12">
