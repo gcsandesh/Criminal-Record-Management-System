@@ -21,8 +21,9 @@ router.get("/id/:id", (req, res) => {
 			"SELECT * FROM records WHERE record_id=?",
 			recordId,
 			(error, result) => {
-				if (error) console.log(error)
-				res.send(result)
+				if (error) res.status(500).send(error)
+				else if (!result.length) res.status(404).send("No record found!")
+				else res.send(result)
 			}
 		)
 	} catch {
