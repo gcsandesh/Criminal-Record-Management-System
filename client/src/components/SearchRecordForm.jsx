@@ -1,7 +1,7 @@
 import React from "react"
 import { FaSearch } from "react-icons/fa"
 
-export default function SearchUserForm({
+export default function SearchRecordForm({
 	formData,
 	setFormData,
 	handleSubmit,

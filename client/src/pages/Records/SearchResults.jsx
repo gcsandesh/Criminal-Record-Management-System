@@ -1,5 +1,5 @@
-import React from "react";
-import { RecordPreview } from "../../components";
+import React from "react"
+import { RecordPreview } from "../../components"
 
 export default function SearchResults({ searchResult }) {
 	const listOfUsers = searchResult.map(
@@ -30,10 +30,12 @@ export default function SearchResults({ searchResult }) {
 				/>
 			</li>
 		)
-	);
+	)
 	return (
 		<div className="rounded-md">
-			<ul className="flex flex-col w-full rounded-md gap-4">{listOfUsers}</ul>
+			<ul className="flex flex-col w-full rounded-md gap-4">
+				{!searchResult.length ? "No records found!" : listOfUsers}
+			</ul>
 		</div>
-	);
+	)
 }
