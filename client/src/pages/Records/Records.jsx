@@ -14,44 +14,16 @@ export default function Records() {
 	}
 
 	const [formData, setFormData] = useState(initialForm)
+	const [searchResult, setSearchResult] = useState([])
 	const [isSubmitted, setIsSubmitted] = useState(false)
-	const [searchResult, setSearchResult] = useState({})
-
-	function handleSubmit(event) {
-		event.preventDefault()
-		if (!validateForm(formData)) return console.log("empty form")
-		// const searchFormData = Object.fromEntries(new FormData(event.target));
-		const { firstName, middleName, lastName, age, gender, crime } = formData
-		let searchURL = new URL(`http://127.0.0.1:9988/api/records/get/record/`)
-		Object.keys(formData).forEach((key) =>
-			searchURL.searchParams.append(key, params[key])
-		)
-
-		fetch(searchURL)
-			.then((res) => res.json())
-			.then((data) => {
-				setSearchResult(data)
-				setIsSubmitted(true)
-			})
-	}
-
-	function validateForm(data) {
-		return (
-			data.age.trim() ||
-			data.crime.trim() ||
-			data.firstName.trim() ||
-			data.middleName.trim() ||
-			data.lastName.trim() ||
-			data.gender.trim()
-		)
-	}
 
 	return (
 		<div className=" h-full w-full flex flex-col gap-4">
 			<SearchRecordForm
 				formData={formData}
 				setFormData={setFormData}
-				handleSubmit={handleSubmit}
+				setSearchResult={setSearchResult}
+				setIsSubmitted={setIsSubmitted}
 			/>
 
 			{!isSubmitted ? (

@@ -13,120 +13,47 @@ router.get("/", (req, res) => {
 	}
 })
 
-// get user by Id
-router.get("/id/:id", (req, res) => {
-	const recordId = req.params.id
-	try {
-		db.query(
-			"SELECT * FROM records WHERE record_id=?",
-			recordId,
-			(error, result) => {
-				if (error) res.status(500).send(error)
-				else if (!result.length) res.status(404).send("No record found!")
-				else res.send(result)
-			}
-		)
-	} catch {
-		console.log("Error running query!")
-	}
-})
+router.get("/record", (req, res) => {
+	const items = [
+		["firstName", "first_name"],
+		["middleName", "middle_name"],
+		["lastName", "last_name"],
+		["age", "age"],
+		["gender", "gender_id"],
+		["crime", "crime_id"],
+	]
+	const { firstName, middleName, lastName, age, gender, crime } = req.query
+	const nonEmptyItems = Object.keys(req.query).filter(
+		(eachItem) => req.query[eachItem]
+	)
+	const nonEmptyCols = nonEmptyItems.map((eachItem) => {
+		return (eachItem = items.find((item) => item[0] === eachItem)[1])
+	})
 
-// get user by first name
-router.get("/firstName/:firstName", (req, res) => {
-	const firstName = req.params.firstName
-	try {
-		db.query(
-			"SELECT * FROM records WHERE first_name=?",
-			firstName,
-			(error, result) => {
-				if (error) console.log(error)
-				res.send(result)
-			}
-		)
-	} catch {
-		console.log("Error running query!")
-	}
-})
+	let queryString = ""
 
-// get user by middle name
-router.get("/middleName/:middleName", (req, res) => {
-	const middleName = req.params.middleName
-	try {
-		db.query(
-			"SELECT * FROM records WHERE middle_name=?",
-			middleName,
-			(error, result) => {
-				if (error) console.log(error)
-				res.send(result)
+	if (!nonEmptyCols.length) res.send("Empty form!")
+	else {
+		let condition = ""
+		for (let i = 0; i < nonEmptyCols.length; i++) {
+			if (i === nonEmptyCols.length - 1) {
+				condition = condition + nonEmptyCols[i] + "=?"
+			} else {
+				condition = condition + nonEmptyCols[i] + "=? && "
 			}
-		)
-	} catch {
-		console.log("Error running query!")
+		}
+		queryString = `SELECT * FROM records WHERE ${condition};`
 	}
-})
-
-// get user by last name
-router.get("/lastName/:lastName", (req, res) => {
-	const lastName = req.params.lastName
-	try {
-		db.query(
-			"SELECT * FROM records WHERE last_name=?",
-			lastName,
-			(error, result) => {
-				if (error) console.log(error)
-				res.send(result)
-			}
-		)
-	} catch {
-		console.log("Error running query!")
-	}
-})
-
-// get user by age
-router.get("/age/:age", (req, res) => {
-	const age = req.params.age
-	try {
-		db.query("SELECT * FROM records WHERE age=?", age, (error, result) => {
-			if (error) console.log(error)
+	// console.log(queryString)
+	// console.log(nonEmptyItems)
+	db.query(
+		queryString,
+		nonEmptyItems.map((item) => eval(item)),
+		(error, result) => {
+			if (error) res.status(500).send(error)
 			res.send(result)
-		})
-	} catch {
-		console.log("Error running query!")
-	}
-})
-
-// get user by gender
-router.get("/gender/:gender", (req, res) => {
-	const gender = req.params.gender
-	try {
-		db.query(
-			"SELECT * FROM records WHERE gender_id=?",
-			gender,
-			(error, result) => {
-				if (error) console.log(error)
-				res.send(result)
-			}
-		)
-	} catch {
-		console.log("Error running query!")
-	}
-})
-
-// get user by crime
-router.get("/crime/:crime", (req, res) => {
-	const crime = req.params.crime
-	try {
-		db.query(
-			"SELECT * FROM records WHERE crime_id=?",
-			crime,
-			(error, result) => {
-				if (error) console.log(error)
-				res.send(result)
-			}
-		)
-	} catch {
-		console.log("Error running query!")
-	}
+		}
+	)
 })
 
 module.exports = router

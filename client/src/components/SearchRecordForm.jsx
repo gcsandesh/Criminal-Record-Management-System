@@ -1,15 +1,47 @@
-import React from "react"
+import React, { useState } from "react"
 import { FaSearch } from "react-icons/fa"
 
 export default function SearchRecordForm({
 	formData,
 	setFormData,
-	handleSubmit,
+	setSearchResult,
+	setIsSubmitted,
 }) {
+	function handleSubmit(event) {
+		event.preventDefault()
+		if (!validateForm(formData)) return console.log("empty form")
+		// const searchFormData = Object.fromEntries(new FormData(event.target));
+		// const { firstName, middleName, lastName, age, gender, crime } = formData
+		let searchURL = new URL(`http://127.0.0.1:9988/api/records/get/record/`)
+		Object.keys(formData).forEach((key) =>
+			searchURL.searchParams.append(key, formData[key])
+		)
+
+		fetch(searchURL)
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data)
+				setSearchResult(data)
+				setIsSubmitted(true)
+			})
+	}
+
 	function handleInput(e) {
+		setIsSubmitted(false)
 		const property = e.target.name
 		const value = e.target.value
 		setFormData((prevFormData) => ({ ...prevFormData, [property]: value }))
+	}
+
+	function validateForm(data) {
+		return (
+			data.age.trim() ||
+			data.crime.trim() ||
+			data.firstName.trim() ||
+			data.middleName.trim() ||
+			data.lastName.trim() ||
+			data.gender.trim()
+		)
 	}
 
 	return (
