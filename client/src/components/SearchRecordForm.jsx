@@ -28,6 +28,7 @@ export default function SearchRecordForm({
 
 	function handleInput(e) {
 		setIsSubmitted(false)
+		setSearchResult([])
 		const property = e.target.name
 		const value = e.target.value
 		setFormData((prevFormData) => ({ ...prevFormData, [property]: value }))
