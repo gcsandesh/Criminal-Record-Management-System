@@ -2,7 +2,7 @@ import React from "react"
 import { RecordPreview } from "../../components"
 
 export default function SearchResults({ searchResult }) {
-	console.log(searchResult)
+	// console.log(searchResult)
 	const listOfUsers = searchResult.map(
 		({
 			record_id,
@@ -13,7 +13,6 @@ export default function SearchResults({ searchResult }) {
 			gender_id,
 			height_inch,
 			photo,
-			isCriminal,
 			crime_id,
 		}) => (
 			<li key={record_id}>
@@ -23,11 +22,10 @@ export default function SearchResults({ searchResult }) {
 					middleName={middle_name}
 					lastName={last_name}
 					age={age}
-					gender={gender_id}
+					genderId={gender_id}
 					height={height_inch}
 					photo={photo}
-					isCriminal={isCriminal}
-					crime={crime_id}
+					crimeId={crime_id}
 				/>
 			</li>
 		)

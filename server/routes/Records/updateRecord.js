@@ -2,21 +2,22 @@ const router = require("express").Router()
 const db = require("../../config/db")
 
 router.patch("/id/:id", (req, res) => {
-	const recordId = req.params.id
+	const record_id = req.params.id
+	console.log(req.body)
 	const {
-		firstName,
-		middleName,
-		lastName,
+		first_name,
+		middle_name,
+		last_name,
 		age,
-		genderId,
-		height,
-		crimeId,
+		gender_id,
+		height_inch,
+		crime_id,
 		photo,
 	} = req.body
 
 	db.query(
 		"SELECT * FROM records WHERE record_id=?",
-		recordId,
+		record_id,
 		(error, result) => {
 			if (error) res.status(500).send(error)
 			else if (!result.length) res.status(404).send("No records found!")
@@ -24,15 +25,15 @@ router.patch("/id/:id", (req, res) => {
 				db.query(
 					"UPDATE records SET first_name=?, middle_name=?, last_name=?, age=?, gender_id=?, height_inch=?, crime_id=?, photo=? WHERE record_id=?",
 					[
-						firstName,
-						middleName,
-						lastName,
+						first_name,
+						middle_name,
+						last_name,
 						age,
-						genderId,
-						height,
-						crimeId,
+						gender_id,
+						height_inch,
+						crime_id,
 						photo,
-						recordId,
+						record_id,
 					],
 					(error, result) => {
 						if (error) res.status(500).send(error)

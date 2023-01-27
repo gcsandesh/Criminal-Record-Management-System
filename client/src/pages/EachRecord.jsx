@@ -1,31 +1,65 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { Link, useParams } from "react-router-dom"
 
 export default function EachRecord() {
-	const { id } = useParams();
-	const [
-		{
-			record_id,
-			first_name,
-			middle_name,
-			last_name,
-			gender_id,
-			age,
-			crime_id,
-			photo,
-			height_inch,
-		},
-		setRecord,
-	] = useState({});
+	const { id } = useParams()
+	const emptyRecord = {
+		record_id: "",
+		first_name: "",
+		middle_name: "",
+		last_name: "",
+		gender_id: "",
+		age: "",
+		crime_id: "",
+		photo: "",
+		height_inch: "",
+	}
+	const [record, setRecord] = useState(emptyRecord)
 
-	const crime = crime_id; //for now, later get crimes from crimes api and match with id
+	const {
+		record_id,
+		first_name,
+		middle_name,
+		last_name,
+		gender_id,
+		age,
+		crime_id,
+		photo,
+		height_inch,
+	} = record
+
+	const [crime, setCrime] = useState({})
+	const [gender, setGender] = useState({})
+
+	// get crime
 	useEffect(() => {
-		fetch(`http://localhost:9988/api/records/id/${id}`)
+		fetch(`http://localhost:9988/api/crimes/get/id/${crime_id}`)
 			.then((res) => res.json())
-			.then((data) => setRecord(data[0]));
-	}, []);
+			.then((data) => setCrime(data[0]))
+	}, [record])
 
-	return (
+	// get gender
+	useEffect(() => {
+		fetch(`http://localhost:9988/api/genders/get/id/${gender_id}`)
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data[0])
+				setGender(data[0])
+			})
+	}, [record])
+
+	// get record
+	useEffect(() => {
+		fetch(`http://localhost:9988/api/records/get/id/${id}`)
+			.then((res) => res.json())
+			.then((data) => {
+				data[0] ? setRecord(data[0]) : setRecord(404)
+			})
+	}, [])
+
+	return record === 404 ? (
+		<div>Error 404: Congratulations, You are now accused of spying.</div>
+	) : (
 		<div className="p-4">
 			<h1 className="text-2xl">Details</h1>
 			{/* id shall be 3 or 4 digit number, idk */}
@@ -37,9 +71,9 @@ export default function EachRecord() {
 				</p>
 				<p>Age: {age}</p>
 				<p>Height (inch): {height_inch}</p>
-				<p>Gender: {gender_id}</p>
-				<p>Crime: {crime}</p>
+				<p>Gender: {gender ? gender.name : "-"}</p>
+				<p>Crime: {crime ? crime.name : "-"}</p>
 			</div>
 		</div>
-	);
+	)
 }

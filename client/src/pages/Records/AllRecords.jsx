@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { RecordPreview } from "../../components";
-// import { FiEdit, FiTrash2 } from "react-icons/fi";
+import React, { useState, useEffect } from "react"
+import { RecordPreview } from "../../components"
 
-export default function AllRecords({ isAdmin }) {
-	const [records, setRecords] = useState([]);
+export default function AllRecords() {
+	const [records, setRecords] = useState([])
 
 	useEffect(() => {
 		fetch("http://localhost:9988/api/records/get")
 			.then((res) => res.json())
-			.then((data) => setRecords(data));
-	}, []);
+			.then((data) => setRecords(data))
+	}, [])
 
 	const allRecordsEl = records.map(
 		({
@@ -21,33 +20,29 @@ export default function AllRecords({ isAdmin }) {
 			gender_id,
 			height_inch,
 			photo,
-			isCriminal,
 			crime_id,
 		}) => {
 			return (
 				<li key={record_id}>
 					<RecordPreview
-						isAdmin={false}
-						// if admin => display edit and delete icons
 						recordId={record_id}
 						firstName={first_name}
 						middleName={middle_name}
 						lastName={last_name}
 						age={age}
-						gender={gender_id}
+						genderId={gender_id}
 						height={height_inch}
 						photo={photo}
-						isCriminal={isCriminal}
-						crime={crime_id}
+						crimeId={crime_id}
 					/>
 				</li>
-			);
+			)
 		}
-	);
+	)
 
 	return (
 		<div>
 			<ul>{allRecordsEl}</ul>
 		</div>
-	);
+	)
 }

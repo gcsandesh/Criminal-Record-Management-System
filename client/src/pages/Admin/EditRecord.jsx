@@ -1,52 +1,52 @@
-import React, { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import React, { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 
-export default function AddRecord() {
-	const emptyRecord = {
-		firstName: "",
-		middleName: "",
-		lastName: "",
-		age: "",
-		gender: "",
-		crime: "",
-		height: "",
-		photo: "",
-	}
+export default function EditRecord() {
+	const { id } = useParams()
 	const navigate = useNavigate()
 
-	const [record, setRecord] = useState(emptyRecord)
+	const [record, setRecord] = useState({})
 
-	async function handleSubmit(event) {
+	// get record
+	useEffect(() => {
+		fetch(`http://localhost:9988/api/records/get/id/${id}`, { method: "GET" })
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data[0])
+				setRecord(data[0])
+			})
+	}, [])
+
+	const [crime, setCrime] = useState([])
+
+	// get crime
+	useEffect(() => {
+		fetch(`http://localhost:9988/api/crimes/get/id/${record.crime_id}`)
+			.then((res) => res.json())
+			.then((data) => setCrime(data[0]))
+	}, [])
+
+	async function handleEdit(event) {
 		event.preventDefault()
-		// console.log("attempting to create record...")
-		await fetch("http://localhost:9988/api/records/create", {
-			method: "POST",
+		await fetch(`http://localhost:9988/api/records/update/id/${id}`, {
+			method: "PATCH",
 			body: JSON.stringify(record),
 			headers: {
-				"Content-type": "application/json; charset=UTF-8",
+				"Content-Type": "application/json",
 			},
-		}).then(() => {
-			navigate("/admin/records")
-			window.alert("Record Created Successfully!")
 		})
-		// event.target.reset()
-		// setRecord(emptyRecord)
+		navigate("/admin/records")
 	}
 
 	function handleInput(event) {
 		const property = event.target.name
 		const value = event.target.value
-
-		setRecord((prevRecord) => ({
-			...prevRecord,
-			[property]: value,
-		}))
+		setRecord((prevRecord) => ({ ...prevRecord, [property]: value }))
 	}
 	return (
 		<div>
 			<form
-				method="POST"
-				onSubmit={handleSubmit}
+				onSubmit={handleEdit}
 				className="flex flex-col justify-between items-start rounded-md gap-2 p-4 bg-light text-dark"
 			>
 				<div className="flex justify-between gap-4">
@@ -56,10 +56,10 @@ export default function AddRecord() {
 							onChange={handleInput}
 							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"text"}
-							name="firstName"
+							name="first_name"
 							id="firstName"
-							value={record.firstName}
-							required
+							placeholder="First Name"
+							value={record.first_name}
 						/>
 					</div>
 					<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
@@ -68,9 +68,9 @@ export default function AddRecord() {
 							onChange={handleInput}
 							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"text"}
-							name="middleName"
+							name="middle_name"
 							id="middleName"
-							value={record.middleName}
+							value={record.middle_name}
 						/>
 					</div>
 					<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
@@ -79,10 +79,10 @@ export default function AddRecord() {
 							onChange={handleInput}
 							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"text"}
-							name="lastName"
+							name="last_name"
 							id="lastName"
-							value={record.lastName}
-							required
+							placeholder="Last Name"
+							value={record.last_name}
 						/>
 					</div>
 				</div>
@@ -95,8 +95,8 @@ export default function AddRecord() {
 							type={"number"}
 							name="age"
 							id="age"
+							placeholder="Age"
 							value={record.age}
-							required
 						/>
 					</div>
 					<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
@@ -106,10 +106,9 @@ export default function AddRecord() {
 								onChange={handleInput}
 								className="bg-gray-200 rounded-sm px-2 h-4 py-0.5 text-xs text-gray-600"
 								type={"radio"}
-								name="gender"
+								name="gender_id"
 								value={1}
 								id="male"
-								required
 							/>
 							<label htmlFor="male">Male</label>
 						</div>
@@ -118,10 +117,9 @@ export default function AddRecord() {
 								onChange={handleInput}
 								className="bg-gray-200 rounded-sm px-2 h-4 py-0.5 text-xs text-gray-600"
 								type={"radio"}
-								name="gender"
+								name="gender_id"
 								value={2}
 								id="female"
-								required
 							/>
 							<label htmlFor="female">Female</label>
 						</div>
@@ -132,11 +130,10 @@ export default function AddRecord() {
 							onChange={handleInput}
 							className="bg-gray-200 rounded-sm pl-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"number"}
-							name="height"
+							name="height_inch"
 							id="height"
 							placeholder="Height in inches"
-							value={record.height}
-							required
+							value={record.height_inch}
 						/>
 					</div>
 				</div>
@@ -147,13 +144,13 @@ export default function AddRecord() {
 							onChange={handleInput}
 							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"text"}
-							name="crime"
+							name="crime_id"
 							id="crime"
 							placeholder="Crime committed"
-							value={record.crime}
+							value={record.crime_id}
 						/>
 					</div>
-					<div className="flex flex-col items-start gap-1 justify-between my-2">
+					{/* <div className="flex flex-col items-start gap-1 justify-between my-2">
 						<label htmlFor="photo">Photo</label>
 						<input
 							onChange={handleInput}
@@ -164,14 +161,13 @@ export default function AddRecord() {
 							value={record.photo}
 							// required
 						/>
-					</div>
+					</div> */}
 				</div>
 				<button
 					className="bg-green-500 text-white rounded-full w-1/2 mx-auto text-sm p-1"
 					type="submit"
-					// onClick={handleSubmit}
 				>
-					Add
+					Edit
 				</button>
 				<button
 					className="bg-red-500 text-white rounded-full w-1/2 mx-auto text-sm p-1"
