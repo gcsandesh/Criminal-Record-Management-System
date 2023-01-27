@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function AddRecord() {
 	const emptyRecord = {
@@ -9,36 +10,37 @@ export default function AddRecord() {
 		gender: "",
 		crime: "",
 		height: "",
-		isCriminal: "",
 		photo: "",
-	};
+	}
+	const navigate = useNavigate()
 
-	const [record, setRecord] = useState(emptyRecord);
+	const [record, setRecord] = useState(emptyRecord)
 
 	async function handleSubmit(event) {
-		event.preventDefault();
-		console.log("attempting to create record...")
-		const res = await fetch("http://localhost:9988/api/records/create", {
+		event.preventDefault()
+		// console.log("attempting to create record...")
+		await fetch("http://localhost:9988/api/records/create", {
 			method: "POST",
 			body: JSON.stringify(record),
 			headers: {
 				"Content-type": "application/json; charset=UTF-8",
 			},
-		});
-		const resAfterSubmit = await res.json();
-		console.log("record: ", record);
-		console.log("response", resAfterSubmit);
-		setRecord(emptyRecord);
+		}).then(() => {
+			navigate("/admin/records")
+			window.alert("Record Created Successfully!")
+		})
+		// event.target.reset()
+		// setRecord(emptyRecord)
 	}
 
 	function handleInput(event) {
-		const property = event.target.name;
-		const value = event.target.value;
+		const property = event.target.name
+		const value = event.target.value
 
 		setRecord((prevRecord) => ({
 			...prevRecord,
 			[property]: value,
-		}));
+		}))
 	}
 	return (
 		<div>
@@ -179,5 +181,5 @@ export default function AddRecord() {
 				</button>
 			</form>
 		</div>
-	);
+	)
 }

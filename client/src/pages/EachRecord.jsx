@@ -28,9 +28,29 @@ export default function EachRecord() {
 		height_inch,
 	} = record
 
-	// const crime = crime_id //for now, later get crimes from crimes api and match with id
+	const [crime, setCrime] = useState({})
+	const [gender, setGender] = useState({})
+
+	// get crime
 	useEffect(() => {
-		fetch(`http://localhost:9988/api/records/get/${id}`)
+		fetch(`http://localhost:9988/api/crimes/get/id/${crime_id}`)
+			.then((res) => res.json())
+			.then((data) => setCrime(data[0]))
+	}, [record])
+
+	// get gender
+	useEffect(() => {
+		fetch(`http://localhost:9988/api/genders/get/id/${gender_id}`)
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data[0])
+				setGender(data[0])
+			})
+	}, [record])
+
+	// get record
+	useEffect(() => {
+		fetch(`http://localhost:9988/api/records/get/id/${id}`)
 			.then((res) => res.json())
 			.then((data) => {
 				data[0] ? setRecord(data[0]) : setRecord(404)
@@ -51,8 +71,8 @@ export default function EachRecord() {
 				</p>
 				<p>Age: {age}</p>
 				<p>Height (inch): {height_inch}</p>
-				<p>Gender: {gender_id}</p>
-				{/* <p>Crime: {crime}</p> */}
+				<p>Gender: {gender ? gender.name : "-"}</p>
+				<p>Crime: {crime ? crime.name : "-"}</p>
 			</div>
 		</div>
 	)

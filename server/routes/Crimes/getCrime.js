@@ -16,6 +16,7 @@ router.get("/id/:id", (req, res) => {
 		crimeId,
 		(error, result) => {
 			if (error) res.status(404).send("No crime found with given id!")
+			res.send(result)
 		}
 	)
 })

@@ -7,17 +7,30 @@ export default function SearchRecordForm({
 	setSearchResult,
 	setIsSubmitted,
 }) {
-	function handleSubmit(event) {
+	async function handleSubmit(event) {
 		event.preventDefault()
 		if (!validateForm(formData)) return console.log("empty form")
-		// const searchFormData = Object.fromEntries(new FormData(event.target));
-		// const { firstName, middleName, lastName, age, gender, crime } = formData
-		let searchURL = new URL(`http://127.0.0.1:9988/api/records/get/record/`)
-		Object.keys(formData).forEach((key) =>
-			searchURL.searchParams.append(key, formData[key])
-		)
+		const formInput = Object.fromEntries(new FormData(event.target))
+		// console.log(formInput)
 
-		fetch(searchURL)
+		if (formInput.crime) {
+			const response = await fetch("http://localhost:9988/api/crimes/get/")
+			const crimes = await response.json()
+
+			const crime = crimes.find(
+				(eachCrime) => eachCrime.name === formInput.crime
+			)
+			console.log(crime)
+			crime ? (formInput.crime = crime.crime_id) : (formInput.crime = "")
+		}
+
+		let searchURL = new URL(`http://127.0.0.1:9988/api/records/get/record/`)
+		Object.keys(formInput).forEach((key) =>
+			searchURL.searchParams.append(key, formInput[key])
+		)
+		// console.log("formdata: ", formData)
+		// console.log(searchURL.toString())
+		fetch(searchURL, { method: "GET" })
 			.then((res) => res.json())
 			.then((data) => {
 				// console.log(data)
@@ -94,13 +107,28 @@ export default function SearchRecordForm({
 				</div>
 				<div className="flex flex-col items-start gap-1 justify-between my-2">
 					<label htmlFor="gender">Gender</label>
-					<input
-						onChange={handleInput}
-						className="bg-gray-200 rounded-sm px-2 w-36"
-						type={"text"}
-						name="gender"
-						value={formData.gender}
-					/>
+					<div className="flex items-center gap-2 text-xs justify-start">
+						<input
+							onChange={handleInput}
+							className="bg-gray-200 rounded-sm px-2 h-4 py-0.5 text-xs text-gray-600"
+							type={"radio"}
+							name="gender"
+							value={1}
+							id="male"
+						/>
+						<label htmlFor="male">Male</label>
+					</div>
+					<div className="flex items-center gap-2 text-xs  justify-start">
+						<input
+							onChange={handleInput}
+							className="bg-gray-200 rounded-sm px-2 h-4 py-0.5 text-xs text-gray-600"
+							type={"radio"}
+							name="gender"
+							value={2}
+							id="female"
+						/>
+						<label htmlFor="female">Female</label>
+					</div>
 				</div>
 				<div className="flex flex-col items-start gap-1 justify-between my-2">
 					<label htmlFor="crime">Crime</label>

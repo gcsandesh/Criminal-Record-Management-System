@@ -3,7 +3,6 @@ const db = require("../../config/db")
 
 router.delete("/id/:id", (req, res) => {
 	const recordId = req.params.id
-	const result = []
 	// first find item
 	db.query(
 		"SELECT * FROM records WHERE record_id=?",

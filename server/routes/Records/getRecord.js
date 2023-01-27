@@ -4,7 +4,7 @@ const db = require("../../config/db")
 // get all records
 router.get("/", (req, res) => {
 	try {
-		db.query("SELECT * FROM records", (error, result) => {
+		db.query("SELECT * FROM records;", (error, result) => {
 			if (error) console.log(error)
 			res.send(result)
 		})
@@ -14,10 +14,10 @@ router.get("/", (req, res) => {
 })
 
 // get for each record page
-router.get("/:id", (req, res) => {
+router.get("/id/:id", (req, res) => {
 	const recordId = req.params.id
 	db.query(
-		"SELECT * FROM records WHERE record_id=?",
+		"SELECT * FROM records WHERE record_id=?;",
 		recordId,
 		(error, result) => {
 			if (error) return res.status(500).send("Error running query!")
@@ -28,6 +28,7 @@ router.get("/:id", (req, res) => {
 
 // get from the search form
 router.get("/record", (req, res) => {
+	// console.log("request received")
 	const items = [
 		["firstName", "first_name"],
 		["middleName", "middle_name"],
@@ -36,17 +37,19 @@ router.get("/record", (req, res) => {
 		["gender", "gender_id"],
 		["crime", "crime_id"],
 	]
-	// const { firstName, middleName, lastName, age, gender, crime } = req.query
+	// since I've used eval() below, destructuring is necessary here
+	const { firstName, middleName, lastName, age, gender, crime } = req.query
 	const nonEmptyItems = Object.keys(req.query).filter(
 		(eachItem) => req.query[eachItem]
 	)
+	// console.log(req.query)
 	const nonEmptyCols = nonEmptyItems.map((eachItem) => {
 		return (eachItem = items.find((item) => item[0] === eachItem)[1])
 	})
 
 	let queryString = ""
 
-	if (!nonEmptyCols.length) res.send("Empty form!")
+	if (!nonEmptyCols.length) return res.send([])
 	else {
 		let condition = ""
 		for (let i = 0; i < nonEmptyCols.length; i++) {
@@ -58,8 +61,8 @@ router.get("/record", (req, res) => {
 		}
 		queryString = `SELECT * FROM records WHERE ${condition};`
 	}
-	// console.log(queryString)
-	// console.log(nonEmptyItems)
+	console.log(queryString)
+	console.log(eval(nonEmptyItems[0]))
 	db.query(
 		queryString,
 		nonEmptyItems.map((item) => eval(item)),

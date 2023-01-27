@@ -1,34 +1,43 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 
 export default function EditRecord() {
-	const emptyRecord = {
-		firstName: "",
-		middleName: "",
-		lastName: "",
-		age: "",
-		gender: "",
-		crime: "",
-		height: "",
-		isCriminal: "",
-		photo: "",
-	}
+	const { id } = useParams()
+	const navigate = useNavigate()
 
-	const [record, setRecord] = React.useState(emptyRecord)
-	function handleEdit(event) {
+	const [record, setRecord] = useState({})
+
+	// get record
+	useEffect(() => {
+		fetch(`http://localhost:9988/api/records/get/id/${id}`, { method: "GET" })
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data[0])
+				setRecord(data[0])
+			})
+	}, [])
+
+	const [crime, setCrime] = useState([])
+
+	// get crime
+	useEffect(() => {
+		fetch(`http://localhost:9988/api/crimes/get/id/${record.crime_id}`)
+			.then((res) => res.json())
+			.then((data) => setCrime(data[0]))
+	}, [])
+
+	async function handleEdit(event) {
 		event.preventDefault()
-		const formData = new FormData(record)
-		const result = fetch("http://localhost:9988/api/records/edit", {
+		await fetch(`http://localhost:9988/api/records/update/id/${id}`, {
 			method: "PATCH",
-			body: formData,
+			body: JSON.stringify(record),
 			headers: {
 				"Content-Type": "application/json",
 			},
 		})
-			.then((res) => res.json())
-			.then((data) => (result = data))
-		console.log(result)
-		console.log(formData)
+		navigate("/admin/records")
 	}
+
 	function handleInput(event) {
 		const property = event.target.name
 		const value = event.target.value
@@ -47,9 +56,10 @@ export default function EditRecord() {
 							onChange={handleInput}
 							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"text"}
-							name="firstName"
+							name="first_name"
 							id="firstName"
-							value={record.firstName}
+							placeholder="First Name"
+							value={record.first_name}
 						/>
 					</div>
 					<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
@@ -58,9 +68,9 @@ export default function EditRecord() {
 							onChange={handleInput}
 							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"text"}
-							name="middleName"
+							name="middle_name"
 							id="middleName"
-							value={record.middleName}
+							value={record.middle_name}
 						/>
 					</div>
 					<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
@@ -69,9 +79,10 @@ export default function EditRecord() {
 							onChange={handleInput}
 							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"text"}
-							name="lastName"
+							name="last_name"
 							id="lastName"
-							value={record.lastName}
+							placeholder="Last Name"
+							value={record.last_name}
 						/>
 					</div>
 				</div>
@@ -84,6 +95,7 @@ export default function EditRecord() {
 							type={"number"}
 							name="age"
 							id="age"
+							placeholder="Age"
 							value={record.age}
 						/>
 					</div>
@@ -94,7 +106,7 @@ export default function EditRecord() {
 								onChange={handleInput}
 								className="bg-gray-200 rounded-sm px-2 h-4 py-0.5 text-xs text-gray-600"
 								type={"radio"}
-								name="gender"
+								name="gender_id"
 								value={1}
 								id="male"
 							/>
@@ -105,7 +117,7 @@ export default function EditRecord() {
 								onChange={handleInput}
 								className="bg-gray-200 rounded-sm px-2 h-4 py-0.5 text-xs text-gray-600"
 								type={"radio"}
-								name="gender"
+								name="gender_id"
 								value={2}
 								id="female"
 							/>
@@ -118,10 +130,10 @@ export default function EditRecord() {
 							onChange={handleInput}
 							className="bg-gray-200 rounded-sm pl-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"number"}
-							name="height"
+							name="height_inch"
 							id="height"
 							placeholder="Height in inches"
-							value={record.height}
+							value={record.height_inch}
 						/>
 					</div>
 				</div>
@@ -132,13 +144,13 @@ export default function EditRecord() {
 							onChange={handleInput}
 							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"text"}
-							name="crime"
+							name="crime_id"
 							id="crime"
 							placeholder="Crime committed"
-							value={record.crime}
+							value={record.crime_id}
 						/>
 					</div>
-					<div className="flex flex-col items-start gap-1 justify-between my-2">
+					{/* <div className="flex flex-col items-start gap-1 justify-between my-2">
 						<label htmlFor="photo">Photo</label>
 						<input
 							onChange={handleInput}
@@ -149,12 +161,11 @@ export default function EditRecord() {
 							value={record.photo}
 							// required
 						/>
-					</div>
+					</div> */}
 				</div>
 				<button
 					className="bg-green-500 text-white rounded-full w-1/2 mx-auto text-sm p-1"
 					type="submit"
-					// onClick={handleSubmit}
 				>
 					Edit
 				</button>

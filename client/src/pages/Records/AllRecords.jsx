@@ -20,7 +20,6 @@ export default function AllRecords() {
 			gender_id,
 			height_inch,
 			photo,
-			isCriminal,
 			crime_id,
 		}) => {
 			return (
@@ -31,11 +30,10 @@ export default function AllRecords() {
 						middleName={middle_name}
 						lastName={last_name}
 						age={age}
-						gender={gender_id}
+						genderId={gender_id}
 						height={height_inch}
 						photo={photo}
-						isCriminal={isCriminal}
-						crime={crime_id}
+						crimeId={crime_id}
 					/>
 				</li>
 			)
