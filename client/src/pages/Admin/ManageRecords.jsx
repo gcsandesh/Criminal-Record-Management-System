@@ -23,17 +23,17 @@ export default function ManageRecords() {
 	return (
 		<div className="">
 			<nav className="flex gap-2 px-2">
-				<button className="flex items-centerhover:bg-opacity-70 gap-2 p-2 my-2 bg-light text-dark rounded-md">
+				<button className="flex items-center transition duration-200 hover:bg-opacity-70 gap-2 p-2 my-2 bg-light text-dark rounded-md">
 					<Link to={""}>Records</Link>
 				</button>
 				<Link to="add">
-					<button className="flex items-center hover:bg-opacity-70 gap-2 p-2 my-2 bg-green-600 text-light rounded-md">
+					<button className="flex items-center transition duration-200 hover:bg-opacity-70 gap-2 p-2 my-2 bg-green-600 text-light rounded-md">
 						<CgFileAdd color="dark" size={24} /> Add Record
 					</button>
 				</Link>
 				{window.location.pathname == `/admin/records/${id}` && (
 					<Link to={`edit/${id}`}>
-						<button className="flex items-center hover:bg-opacity-70 gap-2 p-2 my-2 bg-blue-500 text-light rounded-md">
+						<button className="flex items-center transition duration-200 hover:bg-opacity-70 gap-2 p-2 my-2 bg-blue-500 text-light rounded-md">
 							<FaRegEdit color="dark" size={24} /> Edit Record
 						</button>
 					</Link>
@@ -41,7 +41,7 @@ export default function ManageRecords() {
 				{window.location.pathname == `/admin/records/${id}` && (
 					<button
 						onClick={handleDelete}
-						className="flex items-center hover:bg-opacity-70 gap-2 p-2 my-2 bg-[#e63946] text-light rounded-md"
+						className="flex items-center transition duration-200 hover:bg-opacity-70 gap-2 p-2 my-2 bg-[#e63946] text-light rounded-md"
 					>
 						<FaTrashAlt color="dark" size={24} /> Delete Record
 					</button>
