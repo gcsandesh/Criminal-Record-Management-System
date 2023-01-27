@@ -13,6 +13,20 @@ router.get("/", (req, res) => {
 	}
 })
 
+// get for each record page
+router.get("/:id", (req, res) => {
+	const recordId = req.params.id
+	db.query(
+		"SELECT * FROM records WHERE record_id=?",
+		recordId,
+		(error, result) => {
+			if (error) return res.status(500).send("Error running query!")
+			res.send(result)
+		}
+	)
+})
+
+// get from the search form
 router.get("/record", (req, res) => {
 	const items = [
 		["firstName", "first_name"],
@@ -22,7 +36,7 @@ router.get("/record", (req, res) => {
 		["gender", "gender_id"],
 		["crime", "crime_id"],
 	]
-	const { firstName, middleName, lastName, age, gender, crime } = req.query
+	// const { firstName, middleName, lastName, age, gender, crime } = req.query
 	const nonEmptyItems = Object.keys(req.query).filter(
 		(eachItem) => req.query[eachItem]
 	)

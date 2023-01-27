@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from "react"
+import { Link } from "react-router-dom"
 
 export default function RecordPreview({
 	recordId,
@@ -12,14 +12,25 @@ export default function RecordPreview({
 	photo,
 	crime,
 }) {
-	const crimes = [{ id: 21, name: "Terrorism" }]; //an array of crimes from crimes api
-	const crimeObj = crimes.find((eachCrime) => eachCrime.id === crime);
+	const crimes = [
+		{ id: 1, name: "Murder" },
+		{ id: 2, name: "Assault" },
+		{ id: 3, name: "Rape" },
+		{ id: 4, name: "Robbery" },
+		{ id: 5, name: "Theft" },
+		{ id: 6, name: "Arson" },
+		{ id: 21, name: "Terrorism" },
+	] //an array of crimes from crimes api
+	const crimeObj = crimes.find((eachCrime) => eachCrime.id === crime)
 	// console.log(crimeObj)
-	// const crimeName = crimeObj.name
+	const crimeName = crimeObj ? crimeObj.name : "-"
+
 	return (
-		<div className="mx-auto w-full border-b-2 border-b-gray-200 h-28 my-2 rounded-md py-2">
-			<Link to={`/records/${recordId}`}>
-				<div className="mx-auto flex gap-4 w-full">
+		<div
+			className={`mx-auto w-full border-b-2 border-b-gray-200 h-28 my-2 rounded-md`}
+		>
+			<Link to={`${recordId}`}>
+				<div className="mx-auto flex gap-1 w-full">
 					<div className="w-2/12">
 						<img
 							src={
@@ -33,16 +44,16 @@ export default function RecordPreview({
 							alt="clearly recognizeable criminal face"
 						/>
 					</div>
-					<p className="w-1/12">Id: {recordId}</p>
-					<p className="w-3/12">{`${firstName} ${
-						middleName ? middleName : ""
-					} ${lastName}`}</p>
-					<p className="w-1/12">Age: {age}</p>
-					<p className="w-1/12">Sex: {gender}</p>
-					<p className="w-2/12">Height: {height} in</p>
-					<p className="w-2/12">Crime: {crime === 21 && "Terrorism"}</p>
+					<span className="w-1/12">Id: {recordId}</span>
+					<span className="w-3/12">
+						Name: {`${firstName} ${middleName ? middleName : ""} ${lastName}`}
+					</span>
+					<span className="w-1/12">Age: {age}</span>
+					<span className="w-1/12">Sex: {gender}</span>
+					<span className="w-2/12">Height: {height} in</span>
+					<span className="w-2/12">Crime: {crimeName}</span>
 				</div>
 			</Link>
 		</div>
-	);
+	)
 }

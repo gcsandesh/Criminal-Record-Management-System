@@ -18,19 +18,20 @@ export default function Records() {
 	const [isSubmitted, setIsSubmitted] = useState(false)
 
 	return (
-		<div className=" h-full w-full flex flex-col gap-4">
+		<div className={`h-full w-full flex flex-col gap-4 p-2`}>
 			<SearchRecordForm
 				formData={formData}
 				setFormData={setFormData}
 				setSearchResult={setSearchResult}
 				setIsSubmitted={setIsSubmitted}
 			/>
-
-			{!isSubmitted ? (
-				<AllRecords />
-			) : (
-				<SearchResults searchResult={searchResult} />
-			)}
+			<div>
+				{!isSubmitted ? (
+					<AllRecords />
+				) : (
+					<SearchResults searchResult={searchResult} />
+				)}
+			</div>
 		</div>
 	)
 }
