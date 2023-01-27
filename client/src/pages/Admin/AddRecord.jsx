@@ -43,11 +43,11 @@ export default function AddRecord() {
 		}))
 	}
 	return (
-		<div>
+		<div className="px-2">
 			<form
 				method="POST"
 				onSubmit={handleSubmit}
-				className="flex flex-col justify-between items-start rounded-md gap-2 p-4 bg-light text-dark"
+				className="flex flex-col justify-between items-start rounded-md gap-2 p-4 bg-gray-700 text-light"
 			>
 				<div className="flex justify-between gap-4">
 					<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
