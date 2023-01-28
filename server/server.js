@@ -8,7 +8,7 @@ const app = express()
 app.use(cors())
 app.use(morgan("dev"))
 app.use(express.json())
-// app.use(express.urlencoded());
+app.use(express.urlencoded())
 
 // connecting to database
 db.connect((err) => {
