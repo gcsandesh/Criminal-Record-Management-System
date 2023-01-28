@@ -10,7 +10,6 @@ export default function AddRecord() {
 		gender: "",
 		crime: "",
 		height: "",
-		photo: "",
 	}
 	const navigate = useNavigate()
 
@@ -18,19 +17,27 @@ export default function AddRecord() {
 
 	async function handleSubmit(event) {
 		event.preventDefault()
+		console.log("submitting form")
+		let formData = new FormData(event.target)
+		formData.append("photo", photo.files[0])
+		console.log(formData)
 		// console.log("attempting to create record...")
 		await fetch("http://localhost:9988/api/records/create", {
 			method: "POST",
-			body: JSON.stringify(record),
-			headers: {
-				"Content-type": "application/json; charset=UTF-8",
-			},
-		}).then(() => {
-			navigate("/admin/records")
-			window.alert("Record Created Successfully!")
+			body: formData,
+			// headers: {
+			// "Content-Type": "multipart/form-data",
+			// },
 		})
-		// event.target.reset()
-		// setRecord(emptyRecord)
+			.then(() => {
+				window.alert("Record Created Successfully!")
+				navigate("/admin/records")
+			})
+			.catch(() => {
+				window.alert("Error creating record!")
+				event.target.reset()
+				setRecord(emptyRecord)
+			})
 	}
 
 	function handleInput(event) {
@@ -47,6 +54,7 @@ export default function AddRecord() {
 			<form
 				method="POST"
 				onSubmit={handleSubmit}
+				encType={"multipart/form-data"} //needed to correctly post the file data contained in the file input field
 				className="flex flex-col justify-between items-start rounded-md gap-2 p-4 bg-gray-700 text-light"
 			>
 				<div className="flex justify-between gap-4">
@@ -156,9 +164,9 @@ export default function AddRecord() {
 					<div className="flex flex-col items-start gap-1 justify-between my-2">
 						<label htmlFor="photo">Photo</label>
 						<input
-							onChange={handleInput}
+							// onChange={handleInput}
 							className="bg-gray-200 rounded-sm w-60 h-6 text-xs text-gray-600"
-							type={"file"}
+							type="file"
 							name="photo"
 							id="photo"
 							value={record.photo}
