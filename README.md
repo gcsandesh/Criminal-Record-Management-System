@@ -9,7 +9,7 @@ CRMS is a record management system where a verified user can search for records 
 - Front-end
 
   - React.js
-  - Tailwind CSS
+  - Bootstrap, react-bootstrap
 
 - Back-end
 
