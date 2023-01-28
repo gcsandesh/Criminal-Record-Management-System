@@ -20,8 +20,8 @@ router.get("/id/:id", (req, res) => {
 
 // get user by name
 router.get("/name/:name", (req, res) => {
-	const name = req.params.name
-	db.query("SELECT * FROM users WHERE name=?", name, (error, result) => {
+	const username = req.params.name
+	db.query("SELECT * FROM users WHERE username=?", username, (error, result) => {
 		if (error) console.log(error)
 		res.send(result)
 	})

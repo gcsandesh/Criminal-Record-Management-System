@@ -1,43 +1,58 @@
-const http = require("http")
 const express = require("express")
 const bcrypt = require("bcrypt")
 const app = express()
 const db = require("./config/db")
+const ejs = require("ejs")
+const cors = require("cors")
 
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
+app.set("view-engine", "ejs")
+app.use(cors())
+
+// rendering register page
+app.get("/register", (req, res) => {
+	res.render("./register.ejs")
+})
+
+// send to login page
+app.get("/login", (req, res) => {
+	res.redirect("http://localhost:5173/")
+})
+
+// authenticating user login
 app.post("/login", (req, res) => {
 	const username = req.body.username
 	const password = req.body.password
 	db.query(
 		"SELECT * FROM users WHERE username=?",
 		username,
-		(error, result) => {
-			if (error) res.status(500).send("Error logging in!")
-			else if (!result.length) return res.status(404).send("Invalid Username")
+		async (error, result) => {
+			let isValid = false
+			if (error) return res.status(500).send(isValid)
+			else if (!result.length) return res.status(404).send(isValid)
 			else {
-				result.find(
-					async (user) => await bcrypt.compare(password, user.password)
-				)
+				const user = result[0]
+				isValid = await bcrypt.compare(password, user.password)
 			}
-			res.send(result)
+			res.send(isValid)
 		}
 	)
-	res.send("login")
 })
 
 // creating user
-app.post("/regiser", async (req, res) => {
+app.post("/register", async (req, res) => {
 	const username = req.body.username
 	const password = req.body.password
 
 	const salt = await bcrypt.genSalt()
 	const hashedPassword = await bcrypt.hash(password, salt)
-
 	db.query(
 		"INSERT INTO users(username, password) VALUES(?,?);",
-		[name, hashedPassword],
+		[username, hashedPassword],
 		(error, result) => {
-			if (error) res.status(500).send("Error in registration!")
-			res.send(result)
+			if (error) return res.status(500).send("Error in registration!")
+			res.render("login.ejs")
 		}
 	)
 })

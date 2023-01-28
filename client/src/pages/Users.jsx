@@ -9,7 +9,7 @@ export default function Users() {
 	}, []);
 
 	const usersList = users.map((eachUser) => (
-		<li key={eachUser.user_id}>{eachUser.name}</li>
+		<li key={eachUser.user_id}>{eachUser.username}</li>
 	));
 
 	return (

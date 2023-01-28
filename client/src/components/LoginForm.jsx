@@ -1,24 +1,43 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function LoginForm({ setIsLoggedIn }) {
-	const nav = useNavigate();
-	const [formInput, setFormInput] = useState({ username: "", password: "" });
+	const nav = useNavigate()
+	const [formInput, setFormInput] = useState({ username: "", password: "" })
 
 	function handleLogin(event) {
-		event.preventDefault();
-		nav("/records");
-		setIsLoggedIn(true);
+		event.preventDefault()
+		console.log(Object.fromEntries(new FormData(event.target)))
+		fetch("http://localhost:9900/login", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(Object.fromEntries(new FormData(event.target))),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				if (data) {
+					console.log("login success")
+					nav("/records")
+				}
+				else{
+					console.log("login failed")
+					event.target.reset()
+				}
+			})
+
+		setIsLoggedIn(true)
 	}
 
 	function handleInput(event) {
-		const property = event.target.name;
-		const value = event.target.value;
+		const property = event.target.name
+		const value = event.target.value
 
 		setFormInput((prevFormInput) => ({
 			...prevFormInput,
 			[property]: value,
-		}));
+		}))
 	}
 	return (
 		<div className="">
@@ -59,5 +78,5 @@ export default function LoginForm({ setIsLoggedIn }) {
 				</button>
 			</form>
 		</div>
-	);
+	)
 }
