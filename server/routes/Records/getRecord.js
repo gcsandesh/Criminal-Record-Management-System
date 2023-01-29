@@ -1,11 +1,22 @@
 const router = require("express").Router()
 const db = require("../../config/db")
+const fs = require("fs")
+const path = require("path")
 
 // get all records
 router.get("/", (req, res) => {
 	try {
-		db.query("SELECT * FROM records;", (error, result) => {
-			if (error) console.log(error)
+		db.query("SELECT * FROM records;", async (error, result) => {
+			if (error) return res.status(500).send(error)
+			if (!result.length) return res.status(404).send(result)
+
+			for (let record of result) {
+				if (record.photo) {
+					record.photo = await convertPhotoToObj(record.photo)
+				}
+			}
+			// console.log("all photos:", result[0].photo)
+			// result[0].photo = await convertPhotoToObj(result[0].photo)
 			res.send(result)
 		})
 	} catch {
@@ -19,8 +30,15 @@ router.get("/id/:id", (req, res) => {
 	db.query(
 		"SELECT * FROM records WHERE record_id=?;",
 		recordId,
-		(error, result) => {
-			if (error) return res.status(500).send("Error running query!")
+		async (error, result) => {
+			if (error) return res.status(500).send(error)
+			// console.log(result[0].photo)
+			if (!result.length) return res.status(404).send(result)
+			if (result[0].photo) {
+				console.log("converting image")
+				result[0].photo = await convertPhotoToObj(result[0].photo)
+			}
+			// console.log(result)
 			res.send(result)
 		}
 	)
@@ -61,16 +79,35 @@ router.get("/record", (req, res) => {
 		}
 		queryString = `SELECT * FROM records WHERE ${condition};`
 	}
-	console.log(queryString)
-	console.log(eval(nonEmptyItems[0]))
+	// console.log(queryString)
+	// console.log(eval(nonEmptyItems[0]))
 	db.query(
 		queryString,
 		nonEmptyItems.map((item) => eval(item)),
-		(error, result) => {
-			if (error) res.status(500).send(error)
-			res.send(result)
+		async (error, result) => {
+			if (error) return res.status(500).send(error)
+			if (!result.length) {
+				return res.status(404).send(result)
+			}
+			for (record of result) {
+				if (record.photo) {
+					record.photo = await convertPhotoToObj(record.photo)
+				}
+			}
+			return res.send(result)
 		}
 	)
 })
+
+async function convertPhotoToObj(photoURL) {
+	console.log(photoURL)
+	return new Promise((resolve, reject) => {
+		fs.readFile(photoURL, (error, result) => {
+			if (error) reject(error)
+			console.log("readfile result:", result)
+			resolve({ b64: Buffer.from(result.buffer).toString("base64") })
+		})
+	})
+}
 
 module.exports = router
