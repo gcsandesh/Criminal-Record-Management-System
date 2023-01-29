@@ -33,19 +33,27 @@ export default function EachRecord() {
 
 	// get crime
 	useEffect(() => {
-		fetch(`http://localhost:9988/api/crimes/get/id/${crime_id}`)
-			.then((res) => res.json())
-			.then((data) => setCrime(data[0]))
+		if (crime_id > 0) {
+			fetch(`http://localhost:9988/api/crimes/get/id/${crime_id}`)
+				.then((res) => res.json())
+				.then((data) => setCrime(data[0]))
+		} else {
+			setCrime({ name: "-" })
+		}
 	}, [record])
 
 	// get gender
 	useEffect(() => {
-		fetch(`http://localhost:9988/api/genders/get/id/${gender_id}`)
-			.then((res) => res.json())
-			.then((data) => {
-				console.log(data[0])
-				setGender(data[0])
-			})
+		if (gender_id === 1 || gender_id === 2) {
+			fetch(`http://localhost:9988/api/genders/get/id/${gender_id}`)
+				.then((res) => res.json())
+				.then((data) => {
+					// console.log(data[0])
+					setGender(data[0])
+				})
+		} else {
+			setGender({ name: "Other" })
+		}
 	}, [record])
 
 	// get record
@@ -53,6 +61,7 @@ export default function EachRecord() {
 		fetch(`http://localhost:9988/api/records/get/id/${id}`)
 			.then((res) => res.json())
 			.then((data) => {
+				console.log(data)
 				data[0] ? setRecord(data[0]) : setRecord(404)
 			})
 	}, [])
@@ -64,7 +73,7 @@ export default function EachRecord() {
 			<h1 className="text-2xl">Details</h1>
 			{/* id shall be 3 or 4 digit number, idk */}
 			<div className="flex flex-col gap-2">
-				<img src={photo} className="w-36 h-36" />
+				<img src={`data:image/png;base64,${photo.b64}`} className="w-36 h-36" />
 				<p>Id: {record_id}</p>
 				<p>
 					Name: {first_name} {middle_name} {last_name}

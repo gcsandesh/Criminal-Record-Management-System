@@ -33,7 +33,7 @@ export default function SearchRecordForm({
 		fetch(searchURL, { method: "GET" })
 			.then((res) => res.json())
 			.then((data) => {
-				// console.log(data)
+				console.log("searchresult", data)
 				setSearchResult(data)
 				setIsSubmitted(true)
 			})

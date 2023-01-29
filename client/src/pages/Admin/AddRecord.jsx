@@ -19,15 +19,11 @@ export default function AddRecord() {
 		event.preventDefault()
 		console.log("submitting form")
 		let formData = new FormData(event.target)
-		formData.append("photo", photo.files[0])
-		console.log(formData)
+		// console.log(formData)
 		// console.log("attempting to create record...")
 		await fetch("http://localhost:9988/api/records/create", {
 			method: "POST",
 			body: formData,
-			// headers: {
-			// "Content-Type": "multipart/form-data",
-			// },
 		})
 			.then(() => {
 				window.alert("Record Created Successfully!")
