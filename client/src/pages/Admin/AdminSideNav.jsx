@@ -6,7 +6,7 @@ import { ImStatsBars } from "react-icons/im"
 
 export default function AdminSideNav() {
 	return (
-		<ul className="flex sm:flex-col items-start gap-2 h-screen bg-dark p-2 border-r-2">
+		<ul className="flex sm:flex-col items-start gap-2 h-screen p-2 border-r-2 border-gray-500">
 			<li>
 				<NavLink to={"/admin"}>
 					<button className="flex items-center gap-2 py-0.5 rounded-sm text-left">
