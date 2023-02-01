@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 export default function EachRecord() {
 	const { id } = useParams()
@@ -48,7 +48,6 @@ export default function EachRecord() {
 			fetch(`http://localhost:9988/api/genders/get/id/${gender_id}`)
 				.then((res) => res.json())
 				.then((data) => {
-					// console.log(data[0])
 					setGender(data[0])
 				})
 		} else {
@@ -61,7 +60,7 @@ export default function EachRecord() {
 		fetch(`http://localhost:9988/api/records/get/id/${id}`)
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data)
+				// console.log(data)
 				data[0] ? setRecord(data[0]) : setRecord(404)
 			})
 	}, [])
@@ -73,7 +72,10 @@ export default function EachRecord() {
 			<h1 className="text-2xl">Details</h1>
 			{/* id shall be 3 or 4 digit number, idk */}
 			<div className="flex flex-col gap-2">
-				<img src={`data:image/png;base64,${photo.b64}`} className="w-36 h-36" />
+				<img
+					src={`data:image/png;base64,${photo.b64}`}
+					className="w-36 h-36 object-contain"
+				/>
 				<p>Id: {record_id}</p>
 				<p>
 					Name: {first_name} {middle_name} {last_name}
@@ -81,7 +83,7 @@ export default function EachRecord() {
 				<p>Age: {age}</p>
 				<p>Height (inch): {height_inch}</p>
 				<p>Gender: {gender ? gender.name : "-"}</p>
-				<p>Crime: {crime ? crime.name : "-"}</p>
+				<p>Wanted For: {crime ? crime.name : "-"}</p>
 			</div>
 		</div>
 	)

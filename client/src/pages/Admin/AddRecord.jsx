@@ -17,10 +17,8 @@ export default function AddRecord() {
 
 	async function handleSubmit(event) {
 		event.preventDefault()
-		console.log("submitting form")
+		// console.log("submitting form")
 		let formData = new FormData(event.target)
-		// console.log(formData)
-		// console.log("attempting to create record...")
 		await fetch("http://localhost:9988/api/records/create", {
 			method: "POST",
 			body: formData,
@@ -170,19 +168,20 @@ export default function AddRecord() {
 						/>
 					</div>
 				</div>
-				<button
-					className="bg-green-500 text-white rounded-full w-1/2 mx-auto text-sm p-1"
-					type="submit"
-					// onClick={handleSubmit}
-				>
-					Add
-				</button>
-				<button
-					className="bg-red-500 text-white rounded-full w-1/2 mx-auto text-sm p-1"
-					type="reset"
-				>
-					Reset
-				</button>
+				<div className="mr-auto flex gap-4 justify-between items-center">
+					<button
+						className="bg-green-500 text-white rounded-full w-1/2 min-w-min px-4 py-1  max-w-[80px] text-sm p-1"
+						type="submit"
+					>
+						Add
+					</button>
+					<button
+						className="bg-red-500 text-white rounded-full w-1/2 min-w-min px-4 py-1 max-w-[80px] text-sm p-1"
+						type="reset"
+					>
+						Reset
+					</button>
+				</div>
 			</form>
 		</div>
 	)
