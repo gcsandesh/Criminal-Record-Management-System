@@ -7,29 +7,11 @@ export default function RecordPreview({
 	middleName,
 	lastName,
 	age,
-	genderId,
+	gender,
 	height,
 	photo,
-	crimeId,
+	crime,
 }) {
-	const [crime, setCrime] = useState({})
-	const [gender, setGender] = useState({})
-
-	// get crime
-	useEffect(() => {
-		crimeId &&
-			fetch(`http://localhost:9988/api/crimes/get/id/${crimeId}`)
-				.then((res) => res.json())
-				.then((data) => setCrime(data[0]))
-	}, [])
-
-	// get gender
-	useEffect(() => {
-		fetch(`http://localhost:9988/api/genders/get/id/${genderId}`)
-			.then((res) => res.json())
-			.then((data) => setGender(data[0]))
-	}, [])
-
 	return (
 		<div
 			className={`mx-auto w-full border-b-2 border-b-gray-700 h-28 my-2 rounded-md`}
@@ -49,16 +31,16 @@ export default function RecordPreview({
 							alt="clearly recognizeable criminal face"
 						/>
 					</div>
-					<span className="w-1/12 text-center">{recordId}</span>
+					{/* <span className="w-1/12 text-center">{recordId}</span> */}
 					<span className="w-3/12 text-center">
 						{`${firstName} ${middleName ? middleName : ""} ${lastName}`}
 					</span>
 					<span className="w-1/12 text-center">{age}</span>
 					<span className="w-1/12 text-center">
-						{gender ? gender.name : "-"}
+						{gender === 1 ? "Male" : gender === 2 ? "Female" : "-"}
 					</span>
 					<span className="w-2/12 text-center">{height}</span>
-					<span className="w-2/12 text-center">{crime.name}</span>
+					<span className="w-2/12 text-center">{crime? crime:"-"}</span>
 				</div>
 			</Link>
 		</div>
