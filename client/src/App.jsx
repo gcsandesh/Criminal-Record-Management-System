@@ -18,7 +18,7 @@ import ManageRecords from "./pages/Admin/ManageRecords"
 function App() {
 	return (
 		<Router>
-			<div className="App bg-dark text-light text-xs md:text-base">
+			<div className="App bg-gray-900 text-light text-xs md:text-base">
 				<Routes>
 					<Route path="/" element={<Layout />}>
 						<Route index element={<Landing />} />

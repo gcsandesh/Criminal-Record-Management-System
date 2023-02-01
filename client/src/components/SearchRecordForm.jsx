@@ -9,9 +9,11 @@ export default function SearchRecordForm({
 }) {
 	async function handleSubmit(event) {
 		event.preventDefault()
-		if (!validateForm(formData)) return console.log("empty form")
+		if (!validateForm(formData)) {
+			return window.alert("Form is empty!")
+			// return console.log("empty form")
+		}
 		const formInput = Object.fromEntries(new FormData(event.target))
-		// console.log(formInput)
 
 		if (formInput.crime) {
 			const response = await fetch("http://localhost:9988/api/crimes/get/")
@@ -20,7 +22,6 @@ export default function SearchRecordForm({
 			const crime = crimes.find(
 				(eachCrime) => eachCrime.name === formInput.crime
 			)
-			console.log(crime)
 			crime ? (formInput.crime = crime.crime_id) : (formInput.crime = "")
 		}
 
@@ -28,19 +29,20 @@ export default function SearchRecordForm({
 		Object.keys(formInput).forEach((key) =>
 			searchURL.searchParams.append(key, formInput[key])
 		)
-		// console.log("formdata: ", formData)
-		// console.log(searchURL.toString())
+
 		fetch(searchURL, { method: "GET" })
 			.then((res) => res.json())
 			.then((data) => {
-				console.log("searchresult", data)
 				setSearchResult(data)
 				setIsSubmitted(true)
 			})
 	}
 
 	function handleInput(e) {
-		setIsSubmitted(false)
+		// setIsSubmitted(false)
+		if (!validateForm(formData)) {
+			setIsSubmitted(false)
+		}
 		setSearchResult([])
 		const property = e.target.name
 		const value = e.target.value
@@ -63,7 +65,7 @@ export default function SearchRecordForm({
 			<form
 				method="GET"
 				onSubmit={handleSubmit}
-				className="flex flex-wrap justify-between items-center rounded-md gap-4 p-4 w-full bg-gray-400 text-dark"
+				className="flex flex-wrap justify-between items-center rounded-md gap-4 p-4 w-full bg-gray-600 text-gray-200"
 			>
 				<div className="flex flex-col items-start gap-1 justify-between my-2">
 					<label htmlFor="firstName">First Name</label>

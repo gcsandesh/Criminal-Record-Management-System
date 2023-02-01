@@ -12,7 +12,7 @@ export default function EditRecord() {
 		fetch(`http://localhost:9988/api/records/get/id/${id}`, { method: "GET" })
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data[0])
+				// console.log(data[0])
 				setRecord(data[0])
 			})
 	}, [])
@@ -28,12 +28,10 @@ export default function EditRecord() {
 
 	async function handleEdit(event) {
 		event.preventDefault()
+		const formData = new FormData(event.target)
 		await fetch(`http://localhost:9988/api/records/update/id/${id}`, {
 			method: "PATCH",
-			body: JSON.stringify(record),
-			headers: {
-				"Content-Type": "application/json",
-			},
+			body: formData,
 		})
 		navigate("/admin/records")
 	}
@@ -47,7 +45,7 @@ export default function EditRecord() {
 		<div>
 			<form
 				onSubmit={handleEdit}
-				className="flex flex-col justify-between items-start rounded-md gap-2 p-4 bg-light text-dark"
+				className="flex flex-col justify-between items-start rounded-md gap-2 p-4 bg-gray-700 text-light"
 			>
 				<div className="flex justify-between gap-4">
 					<div className="flex flex-col items-start gap-1 justify-between w-full my-2">
@@ -150,31 +148,33 @@ export default function EditRecord() {
 							value={record.crime_id}
 						/>
 					</div>
-					{/* <div className="flex flex-col items-start gap-1 justify-between my-2">
+					<div className="flex flex-col items-start gap-1 justify-between my-2">
 						<label htmlFor="photo">Photo</label>
 						<input
-							onChange={handleInput}
+							// onChange={handleInput}
 							className="bg-gray-200 rounded-sm w-60 h-6 text-xs text-gray-600"
 							type={"file"}
 							name="photo"
 							id="photo"
-							value={record.photo}
+							// value={record.photo}
 							// required
 						/>
-					</div> */}
+					</div>
 				</div>
-				<button
-					className="bg-green-500 text-white rounded-full w-1/2 mx-auto text-sm p-1"
-					type="submit"
-				>
-					Edit
-				</button>
-				<button
-					className="bg-red-500 text-white rounded-full w-1/2 mx-auto text-sm p-1"
-					type="reset"
-				>
-					Reset
-				</button>
+				<div className="mr-auto flex gap-4 justify-between items-center">
+					<button
+						className="bg-green-500 text-white rounded-full w-1/2 min-w-min px-4 py-1  max-w-[80px] text-sm p-1"
+						type="submit"
+					>
+						Edit
+					</button>
+					<button
+						className="bg-red-500 text-white rounded-full w-1/2 min-w-min px-4 py-1 max-w-[80px] text-sm p-1"
+						type="reset"
+					>
+						Reset
+					</button>
+				</div>
 			</form>
 		</div>
 	)
