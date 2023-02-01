@@ -15,8 +15,6 @@ router.get("/", (req, res) => {
 					record.photo = await convertPhotoToObj(record.photo)
 				}
 			}
-			// console.log("all photos:", result[0].photo)
-			// result[0].photo = await convertPhotoToObj(result[0].photo)
 			res.send(result)
 		})
 	} catch {
@@ -32,13 +30,11 @@ router.get("/id/:id", (req, res) => {
 		recordId,
 		async (error, result) => {
 			if (error) return res.status(500).send(error)
-			// console.log(result[0].photo)
 			if (!result.length) return res.status(404).send(result)
 			if (result[0].photo) {
-				console.log("converting image")
+				// console.log("converting image")
 				result[0].photo = await convertPhotoToObj(result[0].photo)
 			}
-			// console.log(result)
 			res.send(result)
 		}
 	)
@@ -46,7 +42,6 @@ router.get("/id/:id", (req, res) => {
 
 // get from the search form
 router.get("/record", (req, res) => {
-	// console.log("request received")
 	const items = [
 		["firstName", "first_name"],
 		["middleName", "middle_name"],
@@ -60,7 +55,6 @@ router.get("/record", (req, res) => {
 	const nonEmptyItems = Object.keys(req.query).filter(
 		(eachItem) => req.query[eachItem]
 	)
-	// console.log(req.query)
 	const nonEmptyCols = nonEmptyItems.map((eachItem) => {
 		return (eachItem = items.find((item) => item[0] === eachItem)[1])
 	})
@@ -100,12 +94,12 @@ router.get("/record", (req, res) => {
 })
 
 async function convertPhotoToObj(photoURL) {
-	console.log(photoURL)
+	// console.log(photoURL)
 	return new Promise((resolve, reject) => {
 		fs.readFile(photoURL, (error, result) => {
 			if (error) reject(error)
-			console.log("readfile result:", result)
-			resolve({ b64: Buffer.from(result.buffer).toString("base64") })
+			if (!result) reject(result)
+			else resolve({ b64: Buffer.from(result.buffer).toString("base64") })
 		})
 	})
 }
