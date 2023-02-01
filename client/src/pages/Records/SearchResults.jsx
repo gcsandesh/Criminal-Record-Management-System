@@ -9,10 +9,10 @@ export default function SearchResults({ searchResult }) {
 			middle_name,
 			last_name,
 			age,
-			gender_id,
+			gender,
 			height_inch,
 			photo,
-			crime_id,
+			crime,
 		}) => (
 			<li key={record_id}>
 				<RecordPreview
@@ -21,10 +21,10 @@ export default function SearchResults({ searchResult }) {
 					middleName={middle_name}
 					lastName={last_name}
 					age={age}
-					genderId={gender_id}
+					gender={gender}
 					height={height_inch}
 					photo={photo}
-					crimeId={crime_id}
+					crime={crime}
 				/>
 			</li>
 		)
@@ -33,7 +33,7 @@ export default function SearchResults({ searchResult }) {
 		<div className="rounded-md">
 			<div className="mx-auto flex gap-1 w-full border-b-2 pb-2 border-gray-400">
 				<span className="w-2/12 text-center">Photo</span>
-				<span className="w-1/12 text-center">Id</span>
+				{/* <span className="w-1/12 text-center">Id</span> */}
 				<span className="w-3/12 text-center">Name</span>
 				<span className="w-1/12 text-center">Age</span>
 				<span className="w-1/12 text-center">Gender</span>

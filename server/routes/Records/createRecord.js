@@ -12,7 +12,7 @@ router.post("/", upload.single("photo"), (req, res) => {
 
 	try {
 		db.query(
-			"INSERT INTO records(first_name, middle_name, last_name, age, gender_id, height_inch, crime_id, photo) VALUES(?,?,?,?,?,?,?,?);",
+			"INSERT INTO records(first_name, middle_name, last_name, age, gender, height_inch, crime, photo) VALUES(?,?,?,?,?,?,?,?);",
 			[firstName, middleName, lastName, age, gender, height, crime, photo.path],
 			(error, result) => {
 				if (error) console.log(error)
@@ -20,10 +20,10 @@ router.post("/", upload.single("photo"), (req, res) => {
 				res.send(result)
 			}
 		)
-	} catch {
+	} catch (err) {
 		console.log("Error running query!")
+		res.send(new Error(err))
 	}
-	// res.send("ok")
 })
 
 module.exports = router
