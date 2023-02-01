@@ -8,8 +8,8 @@ router.delete("/id/:id", (req, res) => {
 		"SELECT * FROM records WHERE record_id=?",
 		recordId,
 		(error, result) => {
-			if (error) res.status(500).send(error)
-			else if (!result.length) res.status(404).send("No record found!")
+			if (error) return res.status(500).send(error)
+			else if (!result.length) return res.status(404).send("No record found!")
 			else {
 				// if no error in searching item, and if item is found, then delete item
 				db.query(
@@ -17,11 +17,11 @@ router.delete("/id/:id", (req, res) => {
 					recordId,
 					(error, result) => {
 						// if there is error while deleting record
-						if (error) res.status(500).send(error)
+						if (error) return res.status(500).send(error)
 					}
 				)
 				// if record existed and is now deleted, then send deleted record
-				res.send(result)
+				return res.send(result)
 			}
 		}
 	)

@@ -13,10 +13,12 @@ router.patch("/id/:id", upload.single("photo"), (req, res) => {
 		middle_name,
 		last_name,
 		age,
-		gender_id,
+		gender,
 		height_inch,
-		crime_id,
+		crime,
 	} = req.body
+
+	console.log(req.body.crime)
 
 	const photo = req.file
 
@@ -38,15 +40,15 @@ router.patch("/id/:id", upload.single("photo"), (req, res) => {
 			}
 
 			db.query(
-				"UPDATE records SET first_name=?, middle_name=?, last_name=?, age=?, gender_id=?, height_inch=?, crime_id=?, photo=? WHERE record_id=?",
+				"UPDATE records SET first_name=?, middle_name=?, last_name=?, age=?, gender=?, height_inch=?, crime=?, photo=? WHERE record_id=?",
 				[
 					first_name,
 					middle_name,
 					last_name,
 					age,
-					gender_id,
+					gender,
 					height_inch,
-					crime_id,
+					crime,
 					photo.path,
 					record_id,
 				],

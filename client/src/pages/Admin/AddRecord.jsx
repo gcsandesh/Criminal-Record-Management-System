@@ -6,8 +6,8 @@ export default function AddRecord() {
 		firstName: "",
 		middleName: "",
 		lastName: "",
-		age: "",
-		gender: "",
+		age: 0,
+		gender: 1,
 		crime: "",
 		height: "",
 	}
@@ -19,6 +19,7 @@ export default function AddRecord() {
 		event.preventDefault()
 		// console.log("submitting form")
 		let formData = new FormData(event.target)
+		
 		await fetch("http://localhost:9988/api/records/create", {
 			method: "POST",
 			body: formData,

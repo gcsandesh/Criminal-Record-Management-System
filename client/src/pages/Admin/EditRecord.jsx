@@ -5,7 +5,17 @@ export default function EditRecord() {
 	const { id } = useParams()
 	const navigate = useNavigate()
 
-	const [record, setRecord] = useState({})
+	const emptyRecord = {
+		firstName: "",
+		middleName: "",
+		lastName: "",
+		age: 0,
+		gender: 1,
+		crime: "",
+		height: "",
+	}
+
+	const [record, setRecord] = useState(emptyRecord)
 
 	// get record
 	useEffect(() => {
@@ -15,15 +25,6 @@ export default function EditRecord() {
 				// console.log(data[0])
 				setRecord(data[0])
 			})
-	}, [])
-
-	const [crime, setCrime] = useState([])
-
-	// get crime
-	useEffect(() => {
-		fetch(`http://localhost:9988/api/crimes/get/id/${record.crime_id}`)
-			.then((res) => res.json())
-			.then((data) => setCrime(data[0]))
 	}, [])
 
 	async function handleEdit(event) {
@@ -104,7 +105,7 @@ export default function EditRecord() {
 								onChange={handleInput}
 								className="bg-gray-200 rounded-sm px-2 h-4 py-0.5 text-xs text-gray-600"
 								type={"radio"}
-								name="gender_id"
+								name="gender"
 								value={1}
 								id="male"
 							/>
@@ -115,7 +116,7 @@ export default function EditRecord() {
 								onChange={handleInput}
 								className="bg-gray-200 rounded-sm px-2 h-4 py-0.5 text-xs text-gray-600"
 								type={"radio"}
-								name="gender_id"
+								name="gender"
 								value={2}
 								id="female"
 							/>
@@ -142,10 +143,10 @@ export default function EditRecord() {
 							onChange={handleInput}
 							className="bg-gray-200 rounded-sm px-2 w-36 h-6 py-0.5 text-xs text-gray-600"
 							type={"text"}
-							name="crime_id"
+							name="crime"
 							id="crime"
 							placeholder="Crime committed"
-							value={record.crime_id}
+							value={record.crime}
 						/>
 					</div>
 					<div className="flex flex-col items-start gap-1 justify-between my-2">
@@ -156,7 +157,7 @@ export default function EditRecord() {
 							type={"file"}
 							name="photo"
 							id="photo"
-							// value={record.photo}
+							// value={""}
 							// required
 						/>
 					</div>

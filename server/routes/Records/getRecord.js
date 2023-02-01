@@ -47,8 +47,8 @@ router.get("/record", (req, res) => {
 		["middleName", "middle_name"],
 		["lastName", "last_name"],
 		["age", "age"],
-		["gender", "gender_id"],
-		["crime", "crime_id"],
+		["gender", "gender"],
+		["crime", "crime"],
 	]
 	// since I've used eval() below, destructuring is necessary here
 	const { firstName, middleName, lastName, age, gender, crime } = req.query
