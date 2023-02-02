@@ -7,7 +7,7 @@ const db = require("../../config/db")
 
 router.patch("/id/:id", upload.single("photo"), (req, res) => {
 	const record_id = req.params.id
-	// console.log(req.body)
+
 	const {
 		first_name,
 		middle_name,
@@ -18,10 +18,12 @@ router.patch("/id/:id", upload.single("photo"), (req, res) => {
 		crime,
 	} = req.body
 
-	console.log(req.body.crime)
+	// console.log(req.body.crime)
 
 	const photo = req.file
+	// console.log(photo)
 
+	// check if record exists
 	db.query(
 		"SELECT * FROM records WHERE record_id=?",
 		record_id,
@@ -30,18 +32,25 @@ router.patch("/id/:id", upload.single("photo"), (req, res) => {
 			if (!result.length) return res.status(404).send(result)
 
 			const oldPhoto = result[0].photo
-			if (oldPhoto && photo) {
-				// console.log("oldphoto", oldPhoto)
-				// console.log("newphoto:", photo)
-				const removeFile = await removeOldFileFromStorage(
-					path.resolve(oldPhoto)
-				)
-				console.log(removeFile)
-			}
 
-			db.query(
-				"UPDATE records SET first_name=?, middle_name=?, last_name=?, age=?, gender=?, height_inch=?, crime=?, photo=? WHERE record_id=?",
-				[
+			let queryParams = [
+				first_name,
+				middle_name,
+				last_name,
+				age,
+				gender,
+				height_inch,
+				crime,
+				record_id,
+			]
+			let queryString =
+				"UPDATE records SET first_name=?, middle_name=?, last_name=?, age=?, gender=?, height_inch=?, crime=? WHERE record_id=?"
+
+			if (photo) {
+				queryString =
+					"UPDATE records SET first_name=?, middle_name=?, last_name=?, age=?, gender=?, height_inch=?, crime=?, photo=? WHERE record_id=?"
+
+				queryParams = [
 					first_name,
 					middle_name,
 					last_name,
@@ -51,12 +60,20 @@ router.patch("/id/:id", upload.single("photo"), (req, res) => {
 					crime,
 					photo.path,
 					record_id,
-				],
-				(error, result) => {
-					if (error) return res.status(500).send(error)
-					return res.send(result)
+				]
+				if (oldPhoto) {
+					const removeFile = await removeOldFileFromStorage(
+						path.resolve(oldPhoto)
+					)
+					// console.log("old file removed!", removeFile)
 				}
-			)
+			}
+
+			// if no error occurs, and if there is some result
+			db.query(queryString, queryParams, (error, result) => {
+				if (error) return res.status(500).send(error)
+				return res.send(result)
+			})
 		}
 	)
 })

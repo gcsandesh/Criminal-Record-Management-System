@@ -10,6 +10,8 @@ export default function SearchRecordForm({
 	async function handleSubmit(event) {
 		event.preventDefault()
 		if (!validateForm(formData)) {
+			event.target.reset()
+			setIsSubmitted(false)
 			return window.alert("Form is empty!")
 			// return console.log("empty form")
 		}
@@ -138,7 +140,7 @@ export default function SearchRecordForm({
 						type="submit"
 					>
 						<span>Search</span> <FaSearch />
-					</button>	
+					</button>
 				</div>
 			</form>
 		</div>

@@ -6,16 +6,18 @@ export default function EditRecord() {
 	const navigate = useNavigate()
 
 	const emptyRecord = {
-		firstName: "",
-		middleName: "",
-		lastName: "",
+		first_name: "",
+		middle_name: "",
+		last_name: "",
 		age: 0,
 		gender: 1,
 		crime: "",
-		height: "",
+		height_inch: "",
 	}
 
 	const [record, setRecord] = useState(emptyRecord)
+	const [isMale, setIsMale] = useState(false)
+	const [isFemale, setIsFemale] = useState(false)
 
 	// get record
 	useEffect(() => {
@@ -26,6 +28,19 @@ export default function EditRecord() {
 				setRecord(data[0])
 			})
 	}, [])
+
+
+	useEffect(() => {
+		if (record.gender == 1) {
+			console.log("male")
+			setIsMale(true)
+			setIsFemale(false)
+		} else if (record.gender == 2) {
+			console.log("female")
+			setIsMale(false)
+			setIsFemale(true)
+		}
+	}, [record.gender])
 
 	async function handleEdit(event) {
 		event.preventDefault()
@@ -108,6 +123,7 @@ export default function EditRecord() {
 								name="gender"
 								value={1}
 								id="male"
+								checked={isMale}
 							/>
 							<label htmlFor="male">Male</label>
 						</div>
@@ -119,6 +135,7 @@ export default function EditRecord() {
 								name="gender"
 								value={2}
 								id="female"
+								checked={isFemale}
 							/>
 							<label htmlFor="female">Female</label>
 						</div>
@@ -168,12 +185,6 @@ export default function EditRecord() {
 						type="submit"
 					>
 						Edit
-					</button>
-					<button
-						className="bg-red-500 text-white rounded-full w-1/2 min-w-min px-4 py-1 max-w-[80px] text-sm p-1"
-						type="reset"
-					>
-						Reset
 					</button>
 				</div>
 			</form>
