@@ -27,12 +27,22 @@ CRMS is a record management system where a verified user can search for records 
 - Install required npm packages in 'server' directory and start server:<br/>
   `cd server` **locate into server directory**  
   `npm install` **install packages**  
-  `node index` **start server**  
+  `node index` **start server**
 
 - Install required npm packages in 'client' directory:<br/>
   `cd client` **locate into client directory**  
   `npm install` **install packages**  
-  `npm run dev` **deploy the frontend locally**  
+  `npm run dev` **deploy the frontend locally**
+
+## Future development
+
+Things that I will work on this project later:
+
+- The UI needs to be improved
+- Check for invalid images
+- Improve security
+- create page for managing users
+- use proper routes for managing users
 
 ## Author
 

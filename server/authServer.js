@@ -20,6 +20,12 @@ app.get("/login", (req, res) => {
 	res.redirect("http://localhost:5173/")
 })
 
+// app.get("/update-user", (req, res) => {
+// 	res.redirect("http://localhost:5173/user/update")
+// })
+
+// delete user
+
 // authenticating user login
 app.post("/login", (req, res) => {
 	const username = req.body.username
@@ -56,6 +62,37 @@ app.post("/register", async (req, res) => {
 		}
 	)
 })
+
+// update user
+// app.patch("/update-user", (req, res) => {
+// 	const oldUsername = req.body.username
+// 	const newUsername = req.body.newUsername
+// 	const oldPassword = req.body.oldPassword
+// 	const newPassword = req.body.newPassword
+
+// 	db.query(
+// 		"UPDATE users SET username = ?, password = ? WHERE username = ?, password = ?",
+// 		[newUsername, newPassword, oldUsername, oldPassword],
+// 		(error, result) => {
+// 			if (error) return res.status(500).send(result)
+// 			return res.send(result)
+// 		}
+// 	)
+// })
+
+// deleting user
+// app.delete("/delete-user", (req, res) => {
+// 	const username = req.body.username
+
+// 	db.query(
+// 		"DELETE * FROM users WHERE username=?",
+// 		username,
+// 		(error, result) => {
+// 			if (error) return res.status(500).send(error)
+// 			return res.send(result)
+// 		}
+// 	)
+// })
 
 const port = 9900
 app.listen(port, () => console.log("auth server started on port:", port))
