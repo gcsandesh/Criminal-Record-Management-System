@@ -34,6 +34,26 @@ CRMS is a record management system where a verified user can search for records 
   `npm install` **install packages**  
   `npm run dev` **deploy the frontend locally**
 
+## Database
+
+###### db name: crms
+
+- Table: "records"
+  -- record_id **INT SERIAL PRIMARY_KEY**
+  -- first_name **VARCHAR(50)**
+  -- middle_name **VARCHAR(50)**
+  -- last_name **VARCHAR(50)**
+  -- age **INT**
+  -- gender **INT**
+  -- crime **VARCHAR(100)**
+  -- height_inch **FLOAT(5,2)**
+  -- photo **LONGTEXT**
+
+- Table: "users"
+  -- user_id **SERIAL PRIMARY_KEY**
+  -- username **VARCHAR(30)**
+  -- password **TEXT**
+
 ## Future development
 
 Things that I will work on this project later:
