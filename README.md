@@ -9,7 +9,7 @@ CRMS is a record management system where a verified user can search for records 
 - Front-end
 
   - React.js
-  - Bootstrap, react-bootstrap
+  - Tailwind CSS
 
 - Back-end
 
@@ -24,7 +24,7 @@ CRMS is a record management system where a verified user can search for records 
 - Fork and clone this repository to your machine: <br/>
   `git clone https://github.com/SandeshGC/Criminal-Record-Management-System.git`
 
-- Install XAMPP and start MySQL server.
+- Install <a href="https://www.apachefriends.org/download.html">XAMPP</a> and start MySQL server.
 
 - Create databases and tables as specified in the <a href="#Database">'Database'</a> section.
 
