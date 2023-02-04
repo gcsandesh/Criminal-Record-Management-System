@@ -24,6 +24,10 @@ CRMS is a record management system where a verified user can search for records 
 - Fork and clone this repository to your machine: <br/>
   `git clone https://github.com/SandeshGC/Criminal-Record-Management-System.git`
 
+- Install XAMPP and start MySQL server.
+
+- Create databases and tables as specified in the <a href="#Database">'Database'</a> section.
+
 - Install required npm packages in 'server' directory and start server:<br/>
   `cd server` **locate into server directory**  
   `npm install` **install packages**  
