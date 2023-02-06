@@ -6,7 +6,7 @@ const path = require("path")
 // get all records
 router.get("/", (req, res) => {
 	try {
-		db.query("SELECT * FROM records;", async (error, result) => {
+		db.query("SELECT * FROM records JOIN crimes ON records.crime_id = crimes.crime_id;", async (error, result) => {
 			if (error) return res.status(500).send(error)
 			if (!result.length) return res.status(404).send(result)
 
