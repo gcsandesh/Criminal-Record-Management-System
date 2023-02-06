@@ -68,6 +68,7 @@ Things that I will work on this project later:
 - Improve security
 - create page for managing users
 - use proper routes for managing users
+- add ability to migrate database
 
 ## Author
 
