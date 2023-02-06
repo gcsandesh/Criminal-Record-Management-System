@@ -12,7 +12,7 @@ export default function SearchResults({ searchResult }) {
 			gender,
 			height_inch,
 			photo,
-			crime,
+			crime_id,
 		}) => (
 			<li key={record_id}>
 				<RecordPreview
@@ -24,7 +24,7 @@ export default function SearchResults({ searchResult }) {
 					gender={gender}
 					height={height_inch}
 					photo={photo}
-					crime={crime}
+					crime_id={crime_id}
 				/>
 			</li>
 		)

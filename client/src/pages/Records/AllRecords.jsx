@@ -9,6 +9,7 @@ export default function AllRecords() {
 			.then((res) => res.json())
 			.then((data) => setRecords(data))
 	}, [])
+	console.log(records.crime_id)
 
 	const allRecordsEl = records.map(
 		({
@@ -20,7 +21,7 @@ export default function AllRecords() {
 			gender,
 			height_inch,
 			photo,
-			crime,
+			crime_id,
 		}) => {
 			return (
 				<li key={record_id}>
@@ -33,7 +34,7 @@ export default function AllRecords() {
 						gender={gender}
 						height={height_inch}
 						photo={photo}
-						crime={crime}
+						crime_id={crime_id}
 					/>
 				</li>
 			)

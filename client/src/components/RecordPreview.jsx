@@ -10,8 +10,18 @@ export default function RecordPreview({
 	gender,
 	height,
 	photo,
-	crime,
+	crime_id,
 }) {
+	const [crime, setCrime] = useState(null)
+
+	useEffect(() => {
+		fetch(`http://localhost:9988/api/crimes/get/${crime_id}`)
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data[0].cname)
+				setCrime(data[0].cname)
+			})
+	}, [])
 	return (
 		<div
 			className={`mx-auto w-full border-b-2 border-b-gray-700 h-28 my-2 rounded-md`}
@@ -40,7 +50,7 @@ export default function RecordPreview({
 						{gender === 1 ? "Male" : gender === 2 ? "Female" : "-"}
 					</span>
 					<span className="w-2/12 text-center">{height}</span>
-					<span className="w-2/12 text-center">{crime? crime:"-"}</span>
+					<span className="w-2/12 text-center">{crime ? crime : "-"}</span>
 				</div>
 			</Link>
 		</div>
