@@ -7,7 +7,7 @@ const path = require("path")
 router.get("/", (req, res) => {
 	try {
 		db.query(
-			"SELECT * FROM records JOIN crimes ON records.crime_id = crimes.crime_id;",
+			"SELECT * FROM records JOIN crimes ON records.crime_id = crimes.crime_id ORDER BY first_name;",
 			async (error, result) => {
 				// db.query("SELECT * FROM records;", async (error, result) => {
 				if (error) return res.status(500).send(error)
@@ -30,7 +30,7 @@ router.get("/", (req, res) => {
 router.get("/id/:id", (req, res) => {
 	const recordId = req.params.id
 	db.query(
-		"SELECT * FROM records WHERE record_id=?;",
+		"SELECT * FROM records JOIN crimes ON records.crime_id = crimes.crime_id WHERE record_id=?;",
 		recordId,
 		async (error, result) => {
 			if (error) return res.status(500).send(error)

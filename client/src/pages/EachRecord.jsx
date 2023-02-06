@@ -10,7 +10,7 @@ export default function EachRecord() {
 		last_name: "",
 		gender: "",
 		age: "",
-		crime: "",
+		cname: "",
 		photo: "",
 		height_inch: "",
 	}
@@ -23,10 +23,11 @@ export default function EachRecord() {
 		last_name,
 		gender,
 		age,
-		crime,
+		cname,
 		photo,
 		height_inch,
 	} = record
+	const crime = cname
 
 	// get record
 	useEffect(() => {
