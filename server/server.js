@@ -3,13 +3,15 @@ const morgan = require("morgan")
 const cors = require("cors")
 const db = require("./config/db")
 const allRoutes = require("./routes")
+const jwt = require("jsonwebtoken")
+const dotenv = require('dotenv')
+dotenv.config()
 
 const app = express()
 app.use(cors())
 app.use(morgan("dev"))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-
 
 // connecting to database
 db.connect((err) => {
@@ -20,7 +22,7 @@ db.connect((err) => {
 	console.log("Connected to DB as:", db.threadId)
 })
 
-const port = process.env.PORT || 9988
+const port = parseInt(process.env.SERVER_PORT) || 9988
 
 // starting server to listen on port
 app.listen(port, () => {

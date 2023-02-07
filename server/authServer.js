@@ -4,7 +4,10 @@ const app = express()
 const db = require("./config/db")
 const ejs = require("ejs")
 const cors = require("cors")
+const jwt = require("jsonwebtoken")
+const dotenv = require("dotenv")
 
+dotenv.config()
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.set("view-engine", "ejs")
@@ -20,16 +23,12 @@ app.get("/login", (req, res) => {
 	res.redirect("http://localhost:5173/")
 })
 
-// app.get("/update-user", (req, res) => {
-// 	res.redirect("http://localhost:5173/user/update")
-// })
-
-// delete user
-
 // authenticating user login
 app.post("/login", (req, res) => {
 	const username = req.body.username
 	const password = req.body.password
+
+	const user = { name: username }
 	db.query(
 		"SELECT * FROM users WHERE username=?",
 		username,
@@ -41,7 +40,13 @@ app.post("/login", (req, res) => {
 				const user = result[0]
 				isValid = await bcrypt.compare(password, user.password)
 			}
-			res.send(isValid)
+
+			if (isValid) {
+				const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+				return res.send({ accessToken: accessToken })
+			}
+
+			return res.send(isValid)
 		}
 	)
 })
@@ -62,6 +67,13 @@ app.post("/register", async (req, res) => {
 		}
 	)
 })
+
+const port = parseInt(process.env.AUTH_PORT) || 9900
+app.listen(port, () => console.log("auth server started on port:", port))
+
+// app.get("/update-user", (req, res) => {
+// 	res.redirect("http://localhost:5173/user/update")
+// })
 
 // update user
 // app.patch("/update-user", (req, res) => {
@@ -93,6 +105,3 @@ app.post("/register", async (req, res) => {
 // 		}
 // 	)
 // })
-
-const port = 9900
-app.listen(port, () => console.log("auth server started on port:", port))
