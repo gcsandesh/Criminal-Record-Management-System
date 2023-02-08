@@ -6,7 +6,7 @@ export default function AddRecord() {
 		firstName: "",
 		middleName: "",
 		lastName: "",
-		age: 0,
+		age: "",
 		gender: 1,
 		crime: "",
 		height: "",
