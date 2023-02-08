@@ -61,6 +61,7 @@ router.patch("/id/:id", upload.single("photo"), (req, res) => {
 					photo.path,
 					record_id,
 				]
+
 				if (oldPhoto) {
 					const removeFile = await removeOldFileFromStorage(
 						path.resolve(oldPhoto)

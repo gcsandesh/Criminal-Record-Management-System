@@ -20,6 +20,7 @@ app.get("/register", (req, res) => {
 
 // send to login page
 app.get("/login", (req, res) => {
+	console.log(req.user)
 	res.redirect("http://localhost:5173/")
 })
 
@@ -27,26 +28,19 @@ app.get("/login", (req, res) => {
 app.post("/login", (req, res) => {
 	const username = req.body.username
 	const password = req.body.password
-
-	const user = { name: username }
 	db.query(
 		"SELECT * FROM users WHERE username=?",
 		username,
 		async (error, result) => {
+			console.log(result[0])
 			let isValid = false
 			if (error) return res.status(500).send(isValid)
-			else if (!result.length) return res.status(404).send(isValid)
+			else if (!result.length) return res.status(404).send(result)
 			else {
 				const user = result[0]
 				isValid = await bcrypt.compare(password, user.password)
 			}
-
-			if (isValid) {
-				const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
-				return res.send({ accessToken: accessToken })
-			}
-
-			return res.send(isValid)
+			return res.json({ isValid: isValid, role: result[0].role })
 		}
 	)
 })
@@ -70,6 +64,8 @@ app.post("/register", async (req, res) => {
 
 const port = parseInt(process.env.AUTH_PORT) || 9900
 app.listen(port, () => console.log("auth server started on port:", port))
+
+// function authenticateToken(req, res, next) {}
 
 // app.get("/update-user", (req, res) => {
 // 	res.redirect("http://localhost:5173/user/update")
