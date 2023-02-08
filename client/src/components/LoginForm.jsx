@@ -18,8 +18,13 @@ export default function LoginForm({ setIsLoggedIn }) {
 			.then((res) => res.json())
 			.then((data) => {
 				if (data) {
-					console.log("login success")
-					nav("/records")
+					console.log(data)
+					if(data.role==="admin"){
+						nav("/admin")
+					}
+					else
+					{console.log("login success")
+					nav("/records")}
 				}
 				else{
 					console.log("login failed")

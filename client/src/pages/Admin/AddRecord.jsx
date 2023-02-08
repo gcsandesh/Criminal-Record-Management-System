@@ -15,6 +15,7 @@ export default function AddRecord() {
 
 	const [record, setRecord] = useState(emptyRecord)
 
+	// submitting form
 	async function handleSubmit(event) {
 		event.preventDefault()
 		// console.log("submitting form")

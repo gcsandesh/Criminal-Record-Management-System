@@ -17,17 +17,21 @@ export default function SearchRecordForm({
 		}
 		const formInput = Object.fromEntries(new FormData(event.target))
 
-		let searchURL = new URL(`http://127.0.0.1:9988/api/records/get/record/`)
+		let searchURL = new URL(
+			`http://localhost:9988/api/records/get/record/`
+		)
 		Object.keys(formInput).forEach((key) =>
 			searchURL.searchParams.append(key, formInput[key])
 		)
-
+		console.log(formInput)
+		console.log(searchURL)
 		fetch(searchURL, { method: "GET" })
 			.then((res) => res.json())
 			.then((data) => {
 				setSearchResult(data)
 				setIsSubmitted(true)
 			})
+			.catch((error) => console.log("error fetching!!", error))
 	}
 
 	function handleInput(e) {
