@@ -9,7 +9,7 @@ export default function AllRecords() {
 			.then((res) => res.json())
 			.then((data) => setRecords(data))
 	}, [])
-	console.log(records.crime_id)
+	// console.log(records.crime_id)
 
 	const allRecordsEl = records.map(
 		({

@@ -18,7 +18,7 @@ export default function RecordPreview({
 		fetch(`http://localhost:9988/api/crimes/get/${crime_id}`)
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data[0].cname)
+				// console.log(data[0].cname)
 				setCrime(data[0].cname)
 			})
 	}, [])
