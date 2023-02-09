@@ -20,12 +20,15 @@ export default function AddRecord() {
 		event.preventDefault()
 		// console.log("submitting form")
 		let formData = new FormData(event.target)
-		
+
 		await fetch("http://localhost:9988/api/records/create", {
 			method: "POST",
 			body: formData,
 		})
-			.then(() => {
+			.then((res) => res.json())
+			.then((data) => {
+				if (data.message) console.log(message)
+				// console.log(data)
 				window.alert("Record Created Successfully!")
 				navigate("/admin/records")
 			})

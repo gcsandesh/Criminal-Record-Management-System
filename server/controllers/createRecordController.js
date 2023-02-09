@@ -4,7 +4,16 @@ const db = require("../config/db")
 async function createRecord(req, res) {
 	let { firstName, middleName, lastName, age, gender, crime, height } = req.body
 
-	const crime_id = await crimeToCrimeId(crime)
+	let crime_id = 0
+	try {
+		if (crime) {
+			crime_id = await crimeToCrimeId(crime)
+		}
+	} catch (error) {
+		// console.log(error)
+		return res.status(400).json(error)
+	}
+
 	const photo = req.file
 
 	let queryString =
@@ -29,7 +38,7 @@ async function createRecord(req, res) {
 		db.query(queryString, queryParams, (error, result) => {
 			if (error) return res.json({ message: error })
 			// console.log("Record Added!")
-			return res.send(result)
+			return res.status(201).send(result)
 		})
 	} catch (err) {
 		return res.json({ message: new Error(err) })
@@ -38,16 +47,16 @@ async function createRecord(req, res) {
 
 // finding crime id from crime
 function crimeToCrimeId(crimeName) {
-	console.log(crimeName)
-	if (!crimeName) return 0
+	// console.log(crimeName)
+	// if (!crimeName) return 0
 	return new Promise((resolve, reject) => {
 		db.query(
 			"SELECT crime_id FROM crimes WHERE cname=?",
 			crimeName,
 			(error, result) => {
-				if (error) reject(error)
-				if (!result.length) reject(result)
-				resolve(result[0].crime_id)
+				if (error) return reject({ message: error })
+				if (!result.length) return reject({ message: "Crime not defined!" })
+				return resolve(result[0].crime_id)
 			}
 		)
 	})

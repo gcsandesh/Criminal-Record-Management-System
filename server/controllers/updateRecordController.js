@@ -83,7 +83,7 @@ async function removeOldFileFromStorage(filePath) {
 			if (err) {
 				reject("Error removing file!")
 			}
-			resolve("file removed")
+			resolve("File removed!")
 		})
 	})
 }

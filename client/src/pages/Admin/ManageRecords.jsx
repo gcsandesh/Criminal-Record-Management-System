@@ -8,18 +8,34 @@ export default function ManageRecords() {
 	const navigate = useNavigate()
 
 	async function handleDelete() {
-		await fetch(`http://localhost:9988/api/records/delete/id/${id}`, {
-			method: "DELETE",
-		})
-			.then((res) => res.json())
-			.then((data) => {
-				console.log("Deleted record:", data)
-				console.log("redirecting in 1 seconds...")
-				setTimeout(() => navigate(""), 1000)
-				// navigate("")
+		const sureToDelete = window.prompt(
+			"Are you sure to delete this record? (Y/N)?"
+		)
+		if (sureToDelete === "Y" || sureToDelete === "y") {
+			await fetch(`http://localhost:9988/api/records/delete/id/${id}`, {
+				method: "DELETE",
 			})
+				.then((res) => res.json())
+				.then((data) => {
+					// console.log("Deleted record:", data[0])
+					// console.log("redirecting in 1 seconds...")
+					// setTimeout(() => navigate(""), 1000)
+					window.alert(
+						`Record for ${data.first_name} ${
+							data.middle_name ? data.middle_name : ""
+						} ${data.last_name} was deleted successfully!`
+					)
+					navigate("")
+				})
+				.catch((err) => {
+					console.log(err)
+					window.alert("Error deleting record!")
+				})
+		} else {
+			return window.alert("Record not deleted!")
+		}
 	}
-	// console.log(id, window.location.pathname)
+
 	return (
 		<div className="">
 			<nav className="flex gap-2 px-2">
