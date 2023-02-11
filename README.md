@@ -66,7 +66,7 @@ Things that I will work on this project later:
 
 -   The UI needs to be improved
 -   Check for invalid images
--   Improve security
+-   Improve security (protect routes)
 -   create page for managing users
 -   use proper routes for managing users
 -   add ability to migrate database
