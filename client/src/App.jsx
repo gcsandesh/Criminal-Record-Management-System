@@ -25,7 +25,7 @@ function App() {
                         />
                         <Route path="/records/:id" element={<EachRecord />} />
                         {/* let the user view list of crimes with no. of people who have committed that crime */}
-                        {/* <Route path="/crimes" element={<Crimes />} /> */}
+                        <Route path="/crimes" element={<Crimes />} />
                         {/* for admin */}
                         <Route path="/admin" element={<AdminDash />}>
                             <Route index element={<Stats />} />
