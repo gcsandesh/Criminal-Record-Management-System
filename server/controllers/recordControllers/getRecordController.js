@@ -57,10 +57,10 @@ function getSearchedRecord(req, res) {
         ["lastName", "last_name"],
         ["age", "age"],
         ["gender", "gender"],
-        ["crime", "crime_id"],
+        ["cname", "cname"],
     ]
     // since I've used eval() below, destructuring is necessary here
-    const { firstName, middleName, lastName, age, gender, crime } = req.query
+    const { firstName, middleName, lastName, age, gender, cname } = req.query
     const nonEmptyItems = Object.keys(req.query).filter(
         (eachItem) => req.query[eachItem]
     )
@@ -80,7 +80,7 @@ function getSearchedRecord(req, res) {
                 condition = condition + nonEmptyCols[i] + "=? && "
             }
         }
-        queryString = `SELECT * FROM records WHERE ${condition};`
+        queryString = `SELECT * FROM records JOIN crimes ON records.crime_id = crimes.crime_id WHERE ${condition} GROUP BY first_name;`
     }
     // console.log(queryString)
     // console.log(eval(nonEmptyItems[0]))
@@ -92,25 +92,32 @@ function getSearchedRecord(req, res) {
             if (!result.length) {
                 return res.status(404).send(result)
             }
+            // if the records have photos
             for (record of result) {
                 if (record.photo) {
                     record.photo = await convertPhotoToObj(record.photo)
                 }
             }
-            console.log(result)
+            // console.log(result)
             return res.send(result)
         }
     )
 }
 
-async function convertPhotoToObj(photoURL) {
-    // console.log(photoURL)
+async function convertPhotoToObj(fileName) {
+    // console.log(path.resolve(__dirname, `../../photos/${fileName}`))
     return new Promise((resolve, reject) => {
-        fs.readFile(path.resolve(photoURL), (error, result) => {
-            if (error) reject(error)
-            if (!result) reject(result)
-            else resolve({ b64: Buffer.from(result.buffer).toString("base64") })
-        })
+        fs.readFile(
+            path.resolve(__dirname, `../../photos/${fileName}`),
+            (error, result) => {
+                if (error) reject(error)
+                if (!result) reject(result)
+                else
+                    resolve({
+                        b64: Buffer.from(result.buffer).toString("base64"),
+                    })
+            }
+        )
     })
 }
 

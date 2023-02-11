@@ -6,7 +6,7 @@ const db = require("../../config/db")
 function updateRecord(req, res) {
     const record_id = req.params.id
 
-    const {
+    let {
         first_name,
         middle_name,
         last_name,
@@ -16,10 +16,11 @@ function updateRecord(req, res) {
         cname,
     } = req.body
 
+    if (!cname) cname = "-"
     // console.log(req.body.crime)
 
     const photo = req.file
-    console.log(photo)
+    // console.log(photo)
 
     // check if record exists
     db.query(
@@ -57,7 +58,7 @@ function updateRecord(req, res) {
                     gender,
                     height_inch,
                     cname,
-                    photo.path,
+                    photo.filename,
                     record_id,
                 ]
             } else {
@@ -66,9 +67,8 @@ function updateRecord(req, res) {
 
             // if old photo existed for the record, remove the old photo from storage
             if (photo && oldPhoto) {
-                const removeFile = await removeOldFileFromStorage(
-                    path.resolve(oldPhoto)
-                )
+                const removeFile = await removeOldFileFromStorage(oldPhoto)
+
                 // console.log("old file removed!", removeFile)
             }
 
@@ -82,14 +82,17 @@ function updateRecord(req, res) {
 }
 
 // function to remove old photo from storage
-async function removeOldFileFromStorage(filePath) {
+async function removeOldFileFromStorage(fileName) {
     return new Promise((resolve, reject) => {
-        fs.unlink(path.resolve(filePath), (err, res) => {
-            if (err) {
-                reject("Error removing file!")
+        fs.unlink(
+            path.resolve(__dirname, `../../photos/${fileName}`),
+            (err, res) => {
+                if (err) {
+                    reject("Error removing file!")
+                }
+                resolve("File removed!")
             }
-            resolve("File removed!")
-        })
+        )
     })
 }
 

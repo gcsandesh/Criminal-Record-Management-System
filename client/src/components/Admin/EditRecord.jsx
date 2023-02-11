@@ -34,7 +34,7 @@ export default function EditRecord() {
 
     // get crime
     useEffect(() => {
-        console.log(record.crime)
+        // console.log(record.crime)
         fetch(`http://localhost:9988/api/crimes/id/${record.crime}`)
             .then((res) => res.json())
             .then((data) => {
@@ -177,7 +177,7 @@ export default function EditRecord() {
                             name="cname"
                             id="cname"
                             placeholder="Crime committed"
-                            value={record.cname}
+                            value={record.cname && record.cname}
                         />
                     </div>
                     <div className="flex flex-col items-start gap-1 justify-between my-2">

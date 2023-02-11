@@ -2,13 +2,13 @@ const db = require("../../config/db")
 
 // adding record to db
 async function createRecord(req, res) {
-    let { firstName, middleName, lastName, age, gender, crime, height } =
+    let { firstName, middleName, lastName, age, gender, cname, height } =
         req.body
 
     let crime_id = 0
     try {
-        if (crime) {
-            crime_id = await crimeToCrimeId(crime)
+        if (cname) {
+            crime_id = await crimeToCrimeId(cname)
         }
     } catch (error) {
         // console.log(error)
@@ -16,6 +16,7 @@ async function createRecord(req, res) {
     }
 
     const photo = req.file
+    // console.log(photo)
 
     let queryString =
         "INSERT INTO records(first_name, middle_name, last_name, age, gender, height_inch, crime_id) VALUES(?,?,?,?,?,?,?);"
@@ -30,7 +31,7 @@ async function createRecord(req, res) {
     ]
 
     if (photo) {
-        queryParams.push(photo.path)
+        queryParams.push(photo.filename)
         queryString =
             "INSERT INTO records(first_name, middle_name, last_name, age, gender, height_inch, crime_id, photo) VALUES(?,?,?,?,?,?,?,?);"
     }

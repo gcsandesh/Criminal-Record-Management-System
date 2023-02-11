@@ -8,7 +8,7 @@ export default function Records() {
         lastName: "",
         age: "",
         gender: "",
-        crime: "",
+        cname: "",
     }
 
     const [formData, setFormData] = useState(initialForm)
