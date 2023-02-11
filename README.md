@@ -50,15 +50,23 @@ CRMS is a record management system where a verified user can search for records 
     -   middle_name **VARCHAR(50)**
     -   last_name **VARCHAR(50)**
     -   age **INT**
-    -   gender **INT**
-    -   crime **VARCHAR(100)**
+    -   gender **INT** /_1 for male, 2 for female_/
+    -   crime_id **INT FOREIGN KEY REFERENCES crimes(crime_id)**
     -   height_inch **FLOAT(5,2)**
     -   photo **LONGTEXT**
 
 -   Table: "users"
-    -   user_id **SERIAL PRIMARY_KEY**
+
+    -   user_id **SERIAL PRIMARY KEY**
     -   username **VARCHAR(30)**
     -   password **TEXT**
+    -   role **NVARCHAR(10) DEFAULT 'user' NOT NULL**
+
+-   Table: "crimes"
+    -   crime_id **SERIAL PRIMARY KEY**
+    -   cname **NVARCHAR(50)**
+    -   severity **NVARCHAR(10)**
+    -   description **TEXT**
 
 ## Future development
 
