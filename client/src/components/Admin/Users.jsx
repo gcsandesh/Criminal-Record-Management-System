@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"
 
 export default function Users() {
-	const [users, setUsers] = useState([]);
+	const [users, setUsers] = useState([])
 	useEffect(() => {
-		fetch("http://127.0.0.1:9988/api/users/get")
+		fetch("http://localhost:9988/api/users/get")
 			.then((res) => res.json())
-			.then((data) => setUsers(data));
-	}, []);
+			.then((data) => setUsers(data))
+	}, [])
 
 	const usersList = users.map((eachUser) => (
 		<li key={eachUser.user_id}>{eachUser.username}</li>
-	));
+	))
 
 	return (
 		<div>
@@ -20,5 +20,5 @@ export default function Users() {
 				<ul className="indent-4">{usersList}</ul>
 			</div>
 		</div>
-	);
+	)
 }

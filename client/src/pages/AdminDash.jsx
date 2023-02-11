@@ -1,5 +1,5 @@
 import React from "react"
-import AdminSideNav from "./AdminSideNav"
+import { AdminSideNav } from "../components/Admin"
 import { Link, Outlet } from "react-router-dom"
 
 export default function AdminDash() {

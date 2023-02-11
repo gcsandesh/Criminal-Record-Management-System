@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { RecordPreview } from "../../components"
+import { RecordPreview } from "."
 
 export default function AllRecords() {
 	const [records, setRecords] = useState([])

@@ -13,53 +13,62 @@ app.use(express.json())
 app.set("view-engine", "ejs")
 app.use(cors())
 
+// connecting authServer to database
+db.connect((err) => {
+    if (err) {
+        console.error("Error connecting to DB!", err.stack)
+        return
+    }
+    console.log("Connected to DB as:", db.threadId)
+})
+
 // rendering register page
 app.get("/register", (req, res) => {
-	res.render("./register.ejs")
+    res.render("./register.ejs")
 })
 
 // send to login page
 app.get("/login", (req, res) => {
-	console.log(req.user)
-	res.redirect("http://localhost:5173/")
+    console.log(req.user)
+    res.redirect("http://localhost:5173/")
 })
 
 // authenticating user login
 app.post("/login", (req, res) => {
-	const username = req.body.username
-	const password = req.body.password
-	db.query(
-		"SELECT * FROM users WHERE username=?",
-		username,
-		async (error, result) => {
-			console.log(result[0])
-			let isValid = false
-			if (error) return res.status(500).send(isValid)
-			else if (!result.length) return res.status(404).send(result)
-			else {
-				const user = result[0]
-				isValid = await bcrypt.compare(password, user.password)
-			}
-			return res.json({ isValid: isValid, role: result[0].role })
-		}
-	)
+    const username = req.body.username
+    const password = req.body.password
+    db.query(
+        "SELECT * FROM users WHERE username=?",
+        username,
+        async (error, result) => {
+            console.log(result[0])
+            let isValid = false
+            if (error) return res.status(500).send(isValid)
+            else if (!result.length) return res.status(404).send(result)
+            else {
+                const user = result[0]
+                isValid = await bcrypt.compare(password, user.password)
+            }
+            return res.json({ isValid: isValid, role: result[0].role })
+        }
+    )
 })
 
 // creating user
 app.post("/register", async (req, res) => {
-	const username = req.body.username
-	const password = req.body.password
+    const username = req.body.username
+    const password = req.body.password
 
-	const salt = await bcrypt.genSalt()
-	const hashedPassword = await bcrypt.hash(password, salt)
-	db.query(
-		"INSERT INTO users(username, password) VALUES(?,?);",
-		[username, hashedPassword],
-		(error, result) => {
-			if (error) return res.status(500).send("Error in registration!")
-			res.render("login.ejs")
-		}
-	)
+    const salt = await bcrypt.genSalt()
+    const hashedPassword = await bcrypt.hash(password, salt)
+    db.query(
+        "INSERT INTO users(username, password) VALUES(?,?);",
+        [username, hashedPassword],
+        (error, result) => {
+            if (error) return res.status(500).send("Error in registration!")
+            res.render("login.ejs")
+        }
+    )
 })
 
 const port = parseInt(process.env.AUTH_PORT) || 9900

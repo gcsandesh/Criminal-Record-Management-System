@@ -29,7 +29,6 @@ export default function EditRecord() {
 			})
 	}, [])
 
-
 	useEffect(() => {
 		if (record.gender == 1) {
 			console.log("male")
