@@ -6,7 +6,7 @@ const {
 	getAllRecords,
 	getRecordById,
 	getSearchedRecord,
-} = require("../../controllers/getRecordController")
+} = require("../../controllers/recordControllers/getRecordController")
 
 // get all records
 // router.get("/", authenticateToken, (req, res) => {

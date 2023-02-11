@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
 })
 
 // get single crime by id
-router.get("/:id", (req, res) => {
+router.get("/id/:id", (req, res) => {
     const crime_id = req.params.id
     db.query(
         "SELECT * FROM crimes WHERE crime_id = ?;",

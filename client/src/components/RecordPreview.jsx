@@ -15,7 +15,7 @@ export default function RecordPreview({
 	const [crime, setCrime] = useState(null)
 
 	useEffect(() => {
-		fetch(`http://localhost:9988/api/crimes/get/${crime_id}`)
+		fetch(`http://localhost:9988/api/crimes/id/${crime_id}`)
 			.then((res) => res.json())
 			.then((data) => {
 				// console.log(data[0].cname)

@@ -15,23 +15,23 @@ app.use(express.urlencoded({ extended: false }))
 
 // connecting to database
 db.connect((err) => {
-	if (err) {
-		console.error("Error connecting to DB!", err.stack)
-		return
-	}
-	console.log("Connected to DB as:", db.threadId)
+    if (err) {
+        console.error("Error connecting to DB!", err.stack)
+        return
+    }
+    console.log("Connected to DB as:", db.threadId)
 })
 
 // routes
 app.get("/", (req, res) => {
-	res.send(
-		"go to '/api/records' for records, '/api/crimes' for crimes, '/api/users' for users"
-	)
+    res.send(
+        "go to '/api/records' for records, '/api/crimes' for crimes, '/api/users' for users"
+    )
 })
 
 app.use("/api", allRoutes)
 app.get("*", (req, res) => {
-	res.send("Where u at?")
+    res.json({ message: "Where u at?" })
 })
 
 module.exports = app

@@ -3,7 +3,7 @@ const path = require("path")
 const multer = require("multer")
 const upload = multer({ dest: path.resolve(__dirname, "../../photos") })
 
-const updateRecord = require("../../controllers/updateRecordController")
+const updateRecord = require("../../controllers/recordControllers/updateRecordController")
 
 router.patch("/id/:id", upload.single("photo"), updateRecord)
 
