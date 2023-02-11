@@ -54,6 +54,7 @@ CRMS is a record management system where a verified user can search for records 
     -   crime_id **INT FOREIGN KEY REFERENCES crimes(crime_id)**
     -   height_inch **FLOAT(5,2)**
     -   photo **LONGTEXT**
+    
     ![image](https://user-images.githubusercontent.com/59115123/218262228-4486cdf9-3522-450c-80fe-fed2e787137a.png)
 
 
@@ -63,6 +64,7 @@ CRMS is a record management system where a verified user can search for records 
     -   username **VARCHAR(30)**
     -   password **TEXT**
     -   role **NVARCHAR(10) DEFAULT 'user' NOT NULL**
+    
     ![image](https://user-images.githubusercontent.com/59115123/218262410-b1912437-a8b9-463a-b0ac-d72199066bc0.png)
 
 
@@ -72,6 +74,7 @@ CRMS is a record management system where a verified user can search for records 
     -   cname **NVARCHAR(50)**
     -   severity **NVARCHAR(10)**
     -   description **TEXT**
+    
     ![image](https://user-images.githubusercontent.com/59115123/218259605-5fbeb5c6-fe84-4192-81be-d71aca0bc824.png)
 
 ## Future development
