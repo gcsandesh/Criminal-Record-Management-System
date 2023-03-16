@@ -1,13 +1,17 @@
 const express = require("express")
 const morgan = require("morgan")
 const cors = require("cors")
+const ejs = require("ejs")
+const dotenv = require("dotenv")
+
 const db = require("./db")
 const allRoutes = require("../routes")
 // const jwt = require("jsonwebtoken")
-const dotenv = require("dotenv")
-dotenv.config()
 
+// MIDDLEWARES //
 const app = express()
+dotenv.config()
+app.set("view-engine", "ejs")
 app.use(cors())
 app.use(morgan("dev"))
 app.use(express.json())
@@ -31,7 +35,7 @@ app.get("/", (req, res) => {
 
 app.use("/api", allRoutes)
 app.get("*", (req, res) => {
-    res.json({ message: "Where u at?" })
+    res.json({ message: "** CRICKET NOISES **?" })
 })
 
 module.exports = app

@@ -1,46 +1,45 @@
 {
-	"name": "crms",
-	"version": "1.0.0",
-	"description": "A criminal record management system using React, Node, Express and MySQL",
-	"main": "index.js",
-	"scripts": {
-		"devStart": "nodemon server.js",
-		"authStart": "nodemon authServer.js"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/SandeshGC/Criminal-Record-Management-System.git"
-	},
-	"keywords": [
-		"record",
-		"management",
-		"system",
-		"dbms",
-		"react",
-		"mysql",
-		"express",
-		"node",
-		"backend",
-		"frontend"
-	],
-	"author": "Sandesh GC",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/SandeshGC/Criminal-Record-Management-System/issues"
-	},
-	"homepage": "https://github.com/SandeshGC/Criminal-Record-Management-System#readme",
-	"dependencies": {
-		"bcrypt": "^5.1.0",
-		"cors": "^2.8.5",
-		"dotenv": "^16.0.3",
-		"ejs": "^3.1.8",
-		"express": "^4.18.2",
-		"jsonwebtoken": "^9.0.0",
-		"multer": "^1.4.5-lts.1",
-		"mysql": "^2.18.1"
-	},
-	"devDependencies": {
-		"morgan": "^1.10.0",
-		"nodemon": "^2.0.20"
-	}
+    "name": "crms",
+    "version": "1.0.0",
+    "description": "A criminal record management system using React, Node, Express and MySQL",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/SandeshGC/Criminal-Record-Management-System.git"
+    },
+    "keywords": [
+        "record",
+        "management",
+        "system",
+        "dbms",
+        "react",
+        "mysql",
+        "express",
+        "node",
+        "backend",
+        "frontend"
+    ],
+    "author": "Sandesh GC",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/SandeshGC/Criminal-Record-Management-System/issues"
+    },
+    "homepage": "https://github.com/SandeshGC/Criminal-Record-Management-System#readme",
+    "dependencies": {
+        "bcrypt": "^5.1.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.3",
+        "ejs": "^3.1.8",
+        "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.0",
+        "multer": "^1.4.5-lts.1",
+        "mysql": "^2.18.1"
+    },
+    "devDependencies": {
+        "morgan": "^1.10.0",
+        "nodemon": "^2.0.20"
+    }
 }

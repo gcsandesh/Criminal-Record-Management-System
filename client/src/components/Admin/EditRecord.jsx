@@ -22,7 +22,7 @@ export default function EditRecord() {
 
     // get record
     useEffect(() => {
-        fetch(`http://localhost:9988/api/records/get/id/${id}`, {
+        fetch(`http://localhost:9988/api/records/id/${id}`, {
             method: "GET",
         })
             .then((res) => res.json())
@@ -59,7 +59,7 @@ export default function EditRecord() {
     async function handleEdit(event) {
         event.preventDefault()
         const formData = new FormData(event.target)
-        await fetch(`http://localhost:9988/api/records/update/id/${id}`, {
+        await fetch(`http://localhost:9988/api/records/id/${id}`, {
             method: "PATCH",
             body: formData,
         })

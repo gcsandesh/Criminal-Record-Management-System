@@ -31,11 +31,11 @@ export default function Stats() {
     }
 
     useEffect(() => {
-        fetch("http://localhost:9988/api/records/get")
+        fetch("http://localhost:9988/api/records")
             .then((res) => res.json())
             .then((data) => setRecords(data))
 
-        fetch("http://localhost:9988/api/users/get")
+        fetch("http://localhost:9988/api/users")
             .then((res) => res.json())
             .then((data) => setUsers(data))
     }, [])

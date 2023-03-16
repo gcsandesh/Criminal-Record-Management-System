@@ -27,11 +27,12 @@ export default function EachRecord() {
         photo,
         height_inch,
     } = record
+
     const crime = cname
 
     // get record
     useEffect(() => {
-        fetch(`http://localhost:9988/api/records/get/id/${id}`)
+        fetch(`http://localhost:9988/api/records/id/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 // console.log(data)

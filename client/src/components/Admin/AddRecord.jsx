@@ -21,7 +21,7 @@ export default function AddRecord() {
         // console.log("submitting form")
         let formData = new FormData(event.target)
 
-        await fetch("http://localhost:9988/api/records/create", {
+        await fetch("http://localhost:9988/api/records", {
             method: "POST",
             body: formData,
         })

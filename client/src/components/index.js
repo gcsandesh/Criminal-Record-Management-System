@@ -7,11 +7,11 @@ import AllRecords from "./AllRecords"
 import SearchResults from "./SearchResults"
 
 export {
-	LoginForm,
-	SearchRecordForm,
-	RecordPreview,
-	Footer,
-	Layout,
-	AllRecords,
-	SearchResults,
+    LoginForm,
+    SearchRecordForm,
+    RecordPreview,
+    Footer,
+    Layout,
+    AllRecords,
+    SearchResults,
 }
