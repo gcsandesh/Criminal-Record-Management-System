@@ -289,7 +289,7 @@ function getSearchedRecord(req, res) {
 
     let queryString = ""
 
-    if (!nonEmptyCols.length) return res.send([])
+    if (!nonEmptyCols.length) return res.status(400).json({message: "Empty form sent!"})
     else {
         let condition = ""
         for (let i = 0; i < nonEmptyCols.length; i++) {

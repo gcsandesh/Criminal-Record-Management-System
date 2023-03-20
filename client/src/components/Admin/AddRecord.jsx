@@ -67,6 +67,7 @@ export default function AddRecord() {
                             id="firstName"
                             value={record.firstName}
                             required
+                            placeholder="First Name"
                         />
                     </div>
                     <div className="flex flex-col items-start gap-1 justify-between w-full my-2">
@@ -78,6 +79,7 @@ export default function AddRecord() {
                             name="middleName"
                             id="middleName"
                             value={record.middleName}
+                            placeholder="Middle Name"
                         />
                     </div>
                     <div className="flex flex-col items-start gap-1 justify-between w-full my-2">
@@ -90,6 +92,7 @@ export default function AddRecord() {
                             id="lastName"
                             value={record.lastName}
                             required
+                            placeholder="Last Name"
                         />
                     </div>
                 </div>
@@ -104,6 +107,7 @@ export default function AddRecord() {
                             id="age"
                             value={record.age}
                             required
+                            placeholder="Age"
                         />
                     </div>
                     <div className="flex flex-col items-start gap-1 justify-between w-full my-2">

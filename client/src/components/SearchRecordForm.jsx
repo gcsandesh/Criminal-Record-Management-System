@@ -17,7 +17,7 @@ export default function SearchRecordForm({
         }
         const formInput = Object.fromEntries(new FormData(event.target))
 
-        let searchURL = new URL(`http://localhost:9988/api/records/get/record/`)
+        let searchURL = new URL(`http://localhost:9988/api/records/record/`)
         Object.keys(formInput).forEach((key) =>
             searchURL.searchParams.append(key, formInput[key])
         )
@@ -69,6 +69,7 @@ export default function SearchRecordForm({
                         type={"text"}
                         name="firstName"
                         value={formData.firstName}
+                        placeholder="First Name"
                     />
                 </div>
                 <div className="flex flex-col items-start gap-1 justify-between my-2">
@@ -79,6 +80,7 @@ export default function SearchRecordForm({
                         type={"text"}
                         name="middleName"
                         value={formData.middleName}
+                        placeholder="Middle Name"
                     />
                 </div>
                 <div className="flex flex-col items-start gap-1 justify-between my-2">
@@ -89,16 +91,18 @@ export default function SearchRecordForm({
                         type={"text"}
                         name="lastName"
                         value={formData.lastName}
+                        placeholder="Last Name"
                     />
                 </div>
                 <div className="flex flex-col items-start gap-1 justify-between my-2">
                     <label htmlFor="age">Age</label>
                     <input
                         onChange={handleInput}
-                        className="bg-gray-200 text-gray-700 rounded-sm px-2 w-10"
+                        className="bg-gray-200 text-gray-700 rounded-sm indent-2 w-16"
                         type={"number"}
                         name="age"
                         value={formData.age}
+                        placeholder="Age"
                     />
                 </div>
                 <div className="flex flex-col items-start gap-1 justify-between my-2">
@@ -134,6 +138,7 @@ export default function SearchRecordForm({
                         type={"text"}
                         name="cname"
                         value={formData.cname}
+                        placeholder="Crime"
                     />
                 </div>
                 <div>

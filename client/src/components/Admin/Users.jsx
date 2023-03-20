@@ -9,7 +9,10 @@ export default function Users() {
     }, [])
 
     const usersList = users.map((eachUser) => (
-        <li key={eachUser.user_id}>{eachUser.username}</li>
+        <li className="list-decimal indent-0 ml-8" key={eachUser.user_id}>
+            {eachUser.username}{" "}
+            <span className="text-gray-400">({eachUser.role})</span>
+        </li>
     ))
 
     return (

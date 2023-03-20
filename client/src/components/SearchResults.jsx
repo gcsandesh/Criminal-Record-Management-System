@@ -2,6 +2,8 @@ import React from "react"
 import { RecordPreview } from "."
 
 export default function SearchResults({ searchResult }) {
+    console.log(searchResult)
+    
     const listOfUsers = searchResult.map(
         ({
             record_id,

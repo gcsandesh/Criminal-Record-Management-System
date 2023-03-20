@@ -1,13 +1,15 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { User } from "../App"
 
-export default function LoginForm({ setIsLoggedIn }) {
+export default function LoginForm() {
     const nav = useNavigate()
+    const userContext = useContext(User)
     const [formInput, setFormInput] = useState({ username: "", password: "" })
 
     function handleLogin(event) {
         event.preventDefault()
-        console.log(Object.fromEntries(new FormData(event.target)))
+        // console.log(Object.fromEntries(new FormData(event.target)))
         fetch("http://localhost:9988/api/auth/login", {
             method: "POST",
             headers: {
@@ -20,21 +22,25 @@ export default function LoginForm({ setIsLoggedIn }) {
             .then((res) => res.json())
             .then((data) => {
                 if (data.isValid) {
+                    data.isLoggedIn = true
+
                     console.log(data)
+                    userContext.setUser(data)
+
                     if (data.role === "admin") {
                         nav("/admin")
                     } else {
                         console.log("login success")
-                        nav("/records")
+                        // nav("/records")
                     }
                 } else {
                     window.alert("Login failed!")
                     console.log("login failed")
+                    userContext.setIsLoggedIn(false)
                     event.target.reset()
                 }
             })
-
-        setIsLoggedIn(true)
+            .catch((error) => console.log("error", error))
     }
 
     function handleInput(event) {
@@ -46,6 +52,7 @@ export default function LoginForm({ setIsLoggedIn }) {
             [property]: value,
         }))
     }
+
     return (
         <div className="">
             <form
