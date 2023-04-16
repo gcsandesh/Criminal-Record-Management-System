@@ -30,14 +30,14 @@ CRMS is a record management system where a verified user can search for records 
 
 -   Install required npm packages in 'server' directory and start server:<br/>
     `cd server` **locate into server directory**  
-    `npm install` **install packages**  
-    `npm run devStart` **start server**
-    `npm run authStart` **start authentication server**
+    `npm install` or `yarn` **install packages**  
+    `npm run devStart` or `yarn devStart` **start server** <br/>
+    `npm run authStart` or `yarn authStart` **start authentication server**
 
 -   Install required npm packages in 'client' directory:<br/>
     `cd client` **locate into client directory**  
-    `npm install` **install packages**  
-    `npm run dev` **deploy the frontend locally**
+    `npm install` or `yarn` **install packages**  
+    `npm run dev` or `yarn dev` **deploy the frontend locally**
 
 ## Database
 
@@ -54,9 +54,8 @@ CRMS is a record management system where a verified user can search for records 
     -   crime_id **INT FOREIGN KEY REFERENCES crimes(crime_id)**
     -   height_inch **FLOAT(5,2)**
     -   photo **LONGTEXT**
-    
-    ![image](https://user-images.githubusercontent.com/59115123/218262228-4486cdf9-3522-450c-80fe-fed2e787137a.png)
 
+    ![image](https://user-images.githubusercontent.com/59115123/218262228-4486cdf9-3522-450c-80fe-fed2e787137a.png)
 
 -   Table: "users"
 
@@ -64,17 +63,16 @@ CRMS is a record management system where a verified user can search for records 
     -   username **VARCHAR(30)**
     -   password **TEXT**
     -   role **NVARCHAR(10) DEFAULT 'user' NOT NULL**
-    
+
     ![image](https://user-images.githubusercontent.com/59115123/218262410-b1912437-a8b9-463a-b0ac-d72199066bc0.png)
 
-
-
 -   Table: "crimes"
+
     -   crime_id **SERIAL PRIMARY KEY**
     -   cname **NVARCHAR(50)**
     -   severity **NVARCHAR(10)**
     -   description **TEXT**
-    
+
     ![image](https://user-images.githubusercontent.com/59115123/218259605-5fbeb5c6-fe84-4192-81be-d71aca0bc824.png)
 
 ## Future development
