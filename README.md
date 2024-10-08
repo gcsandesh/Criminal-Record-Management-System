@@ -22,7 +22,7 @@ CRMS is a record management system where a verified user can search for records 
 ## To run the application locally
 
 -   Fork and clone this repository to your machine: <br/>
-    `git clone https://github.com/SandeshGC/Criminal-Record-Management-System.git`
+    `git clone https://github.com/gcsandesh/Criminal-Record-Management-System.git`
 
 -   Install <a href="https://www.apachefriends.org/download.html">XAMPP</a> and start MySQL server.
 
