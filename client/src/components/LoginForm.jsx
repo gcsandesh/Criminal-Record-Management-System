@@ -43,7 +43,7 @@ export default function LoginForm() {
             })
             .catch((error) => {
                 window.alert("Error logging in")
-                console.log(error)
+                // console.log(error)
             })
     }
 
