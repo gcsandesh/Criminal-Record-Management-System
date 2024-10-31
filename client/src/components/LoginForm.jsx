@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { User } from "../App"
+import { APIv1, BASE_URL } from "../constants/api"
 
 export default function LoginForm() {
     const nav = useNavigate()
@@ -10,7 +11,7 @@ export default function LoginForm() {
     function handleLogin(event) {
         event.preventDefault()
         // console.log(Object.fromEntries(new FormData(event.target)))
-        fetch("http://localhost:9988/api/auth/login", {
+        fetch(`${BASE_URL}${APIv1.auth.login}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -24,23 +25,26 @@ export default function LoginForm() {
                 if (data.isValid) {
                     data.isLoggedIn = true
 
-                    console.log(data)
+                    // console.log(data)
                     userContext.setUser(data)
 
                     if (data.role === "admin") {
                         nav("/admin")
                     } else {
-                        console.log("login success")
+                        // console.log("login success")
                         // nav("/records")
                     }
                 } else {
                     window.alert("Login failed!")
-                    console.log("login failed")
+                    // console.log("login failed")
                     userContext.setIsLoggedIn(false)
                     event.target.reset()
                 }
             })
-            .catch((error) => console.log("error", error))
+            .catch((error) => {
+                window.alert("Error logging in")
+                console.log(error)
+            })
     }
 
     function handleInput(event) {
