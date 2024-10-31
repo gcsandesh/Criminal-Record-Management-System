@@ -1,16 +1,20 @@
 import React, { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { User } from "../App"
+import { APIv1, BASE_URL } from "../constants/api"
+import { BsEye, BsEyeSlash } from "react-icons/bs"
 
 export default function LoginForm() {
     const nav = useNavigate()
     const userContext = useContext(User)
     const [formInput, setFormInput] = useState({ username: "", password: "" })
 
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+
     function handleLogin(event) {
         event.preventDefault()
         // console.log(Object.fromEntries(new FormData(event.target)))
-        fetch("http://localhost:9988/api/auth/login", {
+        fetch(`${BASE_URL}${APIv1.auth.login}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -24,23 +28,26 @@ export default function LoginForm() {
                 if (data.isValid) {
                     data.isLoggedIn = true
 
-                    console.log(data)
+                    // console.log(data)
                     userContext.setUser(data)
 
                     if (data.role === "admin") {
                         nav("/admin")
                     } else {
-                        console.log("login success")
+                        // console.log("login success")
                         // nav("/records")
                     }
                 } else {
                     window.alert("Login failed!")
-                    console.log("login failed")
+                    // console.log("login failed")
                     userContext.setIsLoggedIn(false)
                     event.target.reset()
                 }
             })
-            .catch((error) => console.log("error", error))
+            .catch((error) => {
+                window.alert("Error logging in")
+                // console.log(error)
+            })
     }
 
     function handleInput(event) {
@@ -59,14 +66,17 @@ export default function LoginForm() {
                 onSubmit={handleLogin}
                 className="bg-white text-black p-4 rounded-md flex flex-col gap-2"
             >
-                <h3 className="text-center border-b-2 border-blue-400">
+                <h3 className="text-center border-b-2 border-blue-400 font-bold text-lg">
                     Login
                 </h3>
+
                 <div className="my-2">
                     <div className="flex flex-col items-start gap-1 justify-between w-full my-2">
-                        <label htmlFor="username">Username</label>
+                        <label htmlFor="username" className="text-xs font-bold">
+                            Username
+                        </label>
                         <input
-                            className="bg-gray-200 py-1 px-2 rounded-sm"
+                            className="bg-gray-200 py-1 px-2 rounded-sm w-full"
                             type={"text"}
                             name="username"
                             placeholder="username"
@@ -74,20 +84,36 @@ export default function LoginForm() {
                             onChange={handleInput}
                         />
                     </div>
+
                     <div className="flex flex-col items-start gap-1 justify-between w-full">
-                        <label htmlFor="password">Password</label>
-                        <input
-                            className="bg-gray-200 py-1 px-2 rounded-sm"
-                            type={"password"}
-                            name="password"
-                            placeholder="password"
-                            value={formInput.password}
-                            onChange={handleInput}
-                        />
+                        <label htmlFor="password" className="text-xs font-bold">
+                            Password
+                        </label>
+                        <div className="flex items-center">
+                            <input
+                                className="bg-gray-200 py-1 px-2 rounded-sm rounded-r-none"
+                                type={isPasswordVisible ? "text" : "password"}
+                                name="password"
+                                placeholder="password"
+                                value={formInput.password}
+                                onChange={handleInput}
+                            />
+                            <button
+                                type="button"
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    setIsPasswordVisible(!isPasswordVisible)
+                                }}
+                                className="bg-gray-200 p-2 rounded-sm rounded-l-none"
+                            >
+                                {isPasswordVisible ? <BsEyeSlash /> : <BsEye />}
+                            </button>
+                        </div>
                     </div>
                 </div>
+
                 <button
-                    className="bg-green-500 text-white rounded-full w-1/2 mx-auto text-sm p-1"
+                    className="bg-green-500 text-white text-sm p-1 rounded-sm"
                     type="submit"
                 >
                     Login
